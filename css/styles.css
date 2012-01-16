@@ -1,0 +1,77 @@
+/* Site
+   -------------------------------- */
+
+body {
+	font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif";
+}
+
+/* Main
+   -------------------------------- */
+
+div#head {
+	margin: 5px;
+}
+
+div#div_select_lang {
+	float:right;
+}
+
+#page {
+  margin: 0 auto 0 auto;
+  width: 950;
+}
+
+#page h3 { 
+	margin: .3em 0 .3em 0; 
+	padding: 0.4em; 
+	text-align: center; 
+}
+
+#section-compute {
+  width: 300px;
+  margin-right:10px;
+}
+
+#section-storage {
+  width: 300px;
+  margin-right:10px;
+}
+
+#section-network {
+  width: 300px;
+}
+
+#footer {
+  height: 100px;
+}
+
+.marginal {
+  float: left;
+}
+
+.selectable {
+	font-size: .9em;
+	margin: 3px;
+	padding: 2px;
+	text-align: center;
+	width: auto;
+	height: auto;
+}
+
+.selectable:HOVER {
+	color: #FFF;
+	cursor: pointer;
+	background-color: #E69700;
+	background-image: url();	
+}
+
+.button { 
+	padding: .5em 1em; 
+	text-decoration: none; 
+}
+
+.button_create {
+	padding: 0.4em 1em 0.4em 1em;
+    position: relative;
+    text-decoration: none;
+}
