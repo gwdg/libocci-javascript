@@ -1,0 +1,92 @@
+$.get(host, handleResponse);
+
+/*
+	$.getJSON("http://search.twitter.com/search.json?callback=?&rpp=50&q=opera", function(data) {
+		$.each(data.results, function(i, item){
+		$('body').append(item.text + '<br />');
+		});
+		});
+	*/
+	//$.getJSON(host+"?callback=?");
+	/*
+	$.getJSON(host, function(data) {
+				var items = [];
+
+ 			$.each(data, function(key, val) {
+ 				$.each(val, function(key2, val2) {
+ 					items.push('<li id="' + key2 + '">' + val2 + '</li>');
+ 				});
+ 				
+   			
+   			console.log(data);
+
+ 			});
+
+ 			$('<ul/>', {
+   			'class': 'my-new-list',
+   			html: items.join('')
+ 			}).appendTo('body');
+	});
+	*/
+	
+	
+	
+	function handleResponse2(data) {
+	    var lines = data.split('\n');
+	    $.each(lines, function(key, val) {
+	    	var reqParts = val.split("/");
+		    var type = reqParts[reqParts.length-2];
+		    var id = reqParts[reqParts.length-1];
+		    
+		    var details = $.get(host+type+'/'+id+'/');
+		    
+    		$('<div/>', {
+    			'id': type+key+'head',
+    			'class': 'ui-widget-content ui-corner-all selectable',
+    			html: id
+  			}).bind('click', function() {
+  			  $('#'+type+key).toggle();
+  			}).appendTo('#selectable-'+type);
+    		$('<pre/>', {
+    			'id': type+key,
+    			'class': 'ui-widget-content ui-corner-all selectable',
+    			'style': 'display:none',
+    			html: details
+  			}).appendTo('#selectable-'+type);
+	    	
+			
+	    })
+		
+	}
+	
+	var host = "http://192.168.56.101:3000/";
+	var host = "http://www.nyren.net/api/"
+
+
+
+// print Selectables
+		$('<div/>', {
+			'id': Collection.Type+key+'head',
+			'class': 'ui-widget-content ui-corner-all selectable',
+			html: $.i18n._("ressource")+ " " +key
+		}).bind('click', function() {
+		  $('#'+Collection.Type+key).toggle();
+		}).appendTo('#selectable-'+Collection.Type);
+		
+	    // generate details
+		var details =
+			$.i18n._("type") + ": " + Collection.Type + "<br/>" + 
+			$.i18n._("core-id") + ": " + Collection.CoreId + "<br/>" +
+			$.i18n._("architecture") + ": " + Collection.ComputeArchitecture + "<br/>" +
+			$.i18n._("speed") + ": " + Collection.ComputeSpeed + "ghz<br/>" +
+			$.i18n._("memory") + ": " + Collection.ComputeMemory + "gb<br/>" +
+			$.i18n._("state") + ": " + Collection.ComputeState + "<br/>";
+			
+			
+		// print details
+		$('<pre/>', {
+			'id': Collection.Type+key,
+			'class': 'ui-widget-content ui-corner-all selectable',
+			'style': 'display:none; text-align: left',
+			html: details
+		}).appendTo('#selectable-'+Collection.Type);

@@ -13,5 +13,9 @@ var de = {
 		'speed'			:		'Geschwindigkeit',
 		'memory'		:		'Speicher',
 		'state'			:		'Status' ,
-		'linkedTo'		:		'Verbunden mit'
+		'linkedTo'		:		'Verbunden mit',
+			
+		'Create'		:		'Erstelle',
+		
+		'New'			:		'New'
 		}

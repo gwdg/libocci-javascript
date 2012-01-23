@@ -5,6 +5,10 @@ body {
 	font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif";
 }
 
+select { 
+	width: 200px;
+}
+
 /* Main
    -------------------------------- */
 
@@ -74,4 +78,12 @@ div#div_select_lang {
 	padding: 0.4em 1em 0.4em 1em;
     position: relative;
     text-decoration: none;
+}
+
+.action {
+	margin: 5px;
+	height: 28px;
+	padding: 0px;
+	width: 140px;
+	text-align: center;
 }

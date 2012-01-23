@@ -13,5 +13,9 @@ var en = {
 		'speed'			:		'speed',
 		'memory'		:		'memory',
 		'state'			:		'state',
-		'linkedTo'		:		'linked to'
+		'linkedTo'		:		'linked to',
+		
+		'Create'		:		'Create',
+		
+		'New'			:		'New'
 		}
