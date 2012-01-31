@@ -1,13 +1,18 @@
 $.i18n.setDictionary(de);
+//	.log = function() {}
 
 //When document is ready...
 $(document).ready(function(){
 	loadUI();
 });
 
+var Resources = {};
+var Attr = {};
+var Mixins = {};
+
+var kinds = new Array();
 
 function loadUI() {
-		
 	//Set i18n texts
 	$('h3#section-compute-head').text($.i18n._("compute").toUpperCase());
 	$('h3#section-storage-head').text($.i18n._("storage").toUpperCase());
@@ -24,11 +29,16 @@ function loadUI() {
 	});
 }
 
+/*
+ * 
+ * BEGIN Handling
+ * 
+ */
 function handleResponse(data) {
-	
 	var resources = new Array();
 	var links = new Array();
-	var kinds = new Array();
+	
+	Attr = getAllAttributes();
 	
 	$.each(data.collection, function(key, value) {
 		var entitySubType = getWordAfterChar(value.kind.related, '#');
@@ -44,10 +54,37 @@ function handleResponse(data) {
 			links.push(Link);
 		}
 	});
+	
+	
 	//Add Links to Ressources
 	resources = getResourcesWithLinks(resources, links);
-	
-	printDashboard(resources, links, kinds, printResources);
+	printDashboard(resources, links);
+}
+
+function getResourceObj(value) {
+	var resObj = value
+	var Resource = {};
+	Resource.Type = value.kind.term;
+
+	var SingleAttr = jQuery.extend(Attr["entity"], Attr["resource"], Attr[Resource.Type]);
+	$.each(SingleAttr, function(key, value){
+		
+		var attrName = getWordAfterChar(key, '.');
+		attrName = ucwords(attrName);
+		var resValue = resObj.attributes[key];
+		
+		Resource[key] = resValue;
+	});
+	Resources[Resource["occi.core.id"]] = Resource;
+    return Resource;
+}
+
+function getLinkObj(value) {
+	var Link = {}
+	Link.Type = value.kind.term;
+	Link.Source = getWordAfterChar(value.attributes["occi.core.source"], '/');
+	Link.Target = getWordAfterChar(value.attributes["occi.core.target"], '/');
+	return Link;
 }
 
 function getResourcesWithLinks(resources, links) {
@@ -73,114 +110,69 @@ function getResourcesWithLinks(resources, links) {
 	return resources;
 }
 
-function printCreateButton(value, kinds) {
-$('#frame-'+value).prepend($('<div><p><a class="ui-state-default ui-corner-all button_create" id="p_a_create_'+value+'" href="#">'+$.i18n._("New")+'</a></p></div>'))
-
-$('#p_a_create_'+value).bind('click', function() {
-	$('<div/>', {
-		'id': 'dialog_create'+ value,
-		'style' :  'float: left; text-align: center',
-	})
-	.dialog({
-		autoOpen: false,
-		title: $.i18n._("Create")+": "+$.i18n._(value),
-		resizable: false,
-		draggable: true,
-		close: function(ev, ui) {
-		    $(this).remove();
-		 }
-	}).dialog('open');
-	if($('#dialog_create'+ value).dialog("isOpen")) {
-		$('#dialog_create'+ value).one( "clickoutside", function(event){
-			$('#dialog_create'+ value).dialog().parent().one( "clickoutside", function(event){
-				$(this).children().remove();
-				$(this).remove();
-			});
-			
-			//selectKind
-			$('<select/>', {
-				'id' : 'selectKind_'+value,
-			})
-			.appendTo($('#dialog_create'+ value));
-			$.each(kinds, function(key2, value2){
-				kindName = value2;
-				$('<option/>', {
-					'html' : kindName,
-					'value' : kindName
-				})
-				.appendTo($('#selectKind_'+value));
-			});
-			$('#selectKind_'+value).selectmenu({
-				style: "popup"
-			});
-		});
-	}
-});
+function getAllAttributes() {
+	$.ajax({	
+		url: "all.json",
+		dataType: 'json',
+		async: false,
+	    success: function(data){ 
+	    	$.each(data.kinds, function(key, value){
+	    		var Obj = {};
+	    		$.each(value.attributes, function(key, value){
+	    			Obj[key] = value;
+	    		});
+	    		Attr[value.term] = Obj;
+	    	});  	
+	    }
+	});
+	return Attr;
 }
 
-function printResources(resources) {
-	$.each(resources, function(key, value) {	
-		var Collection = value;
-		// print Selectables
-		$('<div/>', {
-			'id': Collection.Type+key+'head',
-			'class': 'ui-widget-content ui-corner-all selectable',
-			html: $.i18n._("ressource")+ " " +key
-		}).bind('click', function() {
-		  $('#'+Collection.Type+key).toggle();
-		}).appendTo('#selectable-'+Collection.Type);
-		
-	    // generate details
-		var details =
-			$.i18n._("type") + ": " + Collection.Type + "<br/>" + 
-			$.i18n._("core-id") + ": " + Collection.CoreId + "<br/>" +
-			$.i18n._("architecture") + ": " + Collection.ComputeArchitecture + "<br/>" +
-			$.i18n._("speed") + ": " + Collection.ComputeSpeed + "ghz<br/>" +
-			$.i18n._("memory") + ": " + Collection.ComputeMemory + "gb<br/>" +
-			$.i18n._("state") + ": " + Collection.ComputeState + "<br/>" +
-			$.i18n._("linkedTo") + ": " + Collection.LinkedTo + "<br/>";
-			
-			
-		// print details
-		$('<pre/>', {
-			'id': Collection.Type+key,
-			'class': 'ui-widget-content ui-corner-all selectable',
-			'style': 'display:none; text-align: left',
-			html: details
-		}).bind('click', function() {
-		  printDetailDialogBox(Collection.Type, key);
-		}).appendTo('#selectable-'+Collection.Type);
-	})
+function getAttributesOfKind(kind) {
+	Attr = getAllAttributes();
+	return Attr[kind];
 }
 
-function getResourceObj(value) {
-	var Resource = {};
-	Resource.Type = value.kind.term;
-	//Compute
-	Resource.CoreId = value.attributes["occi.core.id"]; 
-	Resource.ComputeArchitecture = value.attributes["occi.compute.architecture"]; 
-	Resource.ComputeSpeed = value.attributes["occi.compute.speed"]; 
-	Resource.ComputeMemory = value.attributes["occi.compute.memory"]; 
-	Resource.ComputeState = value.attributes["occi.compute.state"];
-    
-    return Resource;
+function getAttributesOfMixin(mixin) {
+	if(mixin!=-1)
+		return Mixins[mixin];
+	return false;
 }
 
-function getLinkObj(value) {
-	var Link = {}
-	Link.Type = value.kind.term;
-	Link.Source = getWordAfterChar(value.attributes["occi.core.source"], '/');
-	Link.Target = getWordAfterChar(value.attributes["occi.core.target"], '/');
-	return Link;
+function getAllMixins() {
+	$.ajax({	
+		url: "all.json",
+		dataType: 'json',
+		async: false,
+	    success: function(data){ 
+	    	$.each(data.mixins, function(key, value){
+	    		var Obj = {};
+	    		$.each(value, function(key, value){
+	    			Obj[key] = value;
+	    		});
+	    		Mixins[value.term] = Obj;
+	    	});  	
+	    }
+	});
+	return Mixins;
 }
 
-function printDashboard(resources, links, kinds, callback) {
-	printSections(kinds, printCreateButton);
-	//printRessources
-	callback.call(this, resources)
+/*
+ * 
+ * BEGIN Prints
+ * 
+ */
+
+function printDashboard(resources, links) {
+	getAllMixins();
+	
+	printCreateResourceButton();
+	printSections(kinds);
+	printResources(resources);
+	
 }
 
-function printSections(kinds, callback) {
+function printSections(kinds) {
 	$.each(kinds, function(key, value) {
 		$('<h3/>', {
 			'id': "section-"+value+"-head",
@@ -200,9 +192,238 @@ function printSections(kinds, callback) {
 			'class': 'marginal',
 			'style': 'text-align:center',
 		}).appendTo($('#page'))));
-		//printCreateButton
-		callback.call(this,value, kinds);
 	});
+}
+
+function printResources(resources) {
+	$.each(resources, function(key, value) {
+		var Collection = value;
+		var resourceId = value["occi.core.id"];
+		var Resource = {};
+		getOcciCoreTitlebyOcciCoreId(resourceId);
+		// print Selectables
+		$('<div/>', {
+			'id': Collection.Type+key+'head',
+			'class': 'ui-widget-content ui-corner-all selectable',
+			html: getOcciCoreTitlebyOcciCoreId(resourceId)
+		}).bind('click', function() {
+		  $('#'+Collection.Type+key).toggle();
+		  printDetails(resourceId, key);
+		}).appendTo('#selectable-'+Collection.Type);
+		
+		
+		var details = ""
+			
+		$('<pre/>', {
+			'id': Collection.Type+key,
+			'class': 'ui-widget-content ui-corner-all selectable',
+			'style': 'display:none; text-align: left',
+			html: details
+		}).bind('click', function() {
+		  printActionsDialogBox(Collection.Type, resourceId);
+		}).appendTo('#selectable-'+Collection.Type);
+	})
+}
+
+function printActionsDialogBox(type, resourceId) {
+	var type2 = type; 
+	var actions = getActionsOfType(type);
+	var string = new Array();
+	$('<div/>', {
+		'id': 'dialog'+ resourceId,
+		'style' :  'float: left; text-align: center',
+	})
+	.dialog({
+		autoOpen: false,
+		modal: true,
+		title: $.i18n._("Actions"),
+		close: function(ev, ui) {
+		    $(this).remove();
+		 }
+	}).dialog('open');
+	$.each(actions, function(key, value){
+		actionName = getWordAfterChar(value, '#');
+		$('<button/>', {
+			'class' : 'button action ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all',
+			'html' : actionName,
+		})
+		.bind('click', function(){
+			alert("Clicked");
+		})
+		.appendTo($('<div/>', {
+			'id' : "div"+actionName+"resId",
+		}))
+		.appendTo($('#dialog'+resourceId))
+	});
+	
+}
+
+function printDetails(ResourceId, key) {
+	var details = "";
+	var Resource = Resources[ResourceId];
+	$.each(Resource, function(key, value){
+		if(value!=undefined) details += ucwords(getWordAfterChar(key, '.')) + ": "+value + "<br/>";
+	});
+	$('#'+Resource.Type+key).html(details);
+}
+
+/*
+ * 
+ * BEGIN CREATE BUTTONS
+ * 
+ */
+
+function printCreateResourceButton() {
+$('#page').prepend($('<div><p><a class="ui-state-default ui-corner-all button_create" id="p_a_create'+'" href="#">'+$.i18n._("Create_new_resource")+'</a></p></div>'))
+
+$('#p_a_create').bind('click', function() {
+	$('<div/>', {
+		'id': 'dialog_create',
+		'style' :  'float: left; text-align: center',
+	})
+	.dialog({
+		autoOpen: true,
+		modal: true,
+		title: $.i18n._("Create_new_resource"),
+		resizable: false,
+		draggable: true,
+		close: function(ev, ui) {
+		    $(this).remove();
+		 }
+	});
+	
+	if($('#dialog_create').dialog("isOpen")) {
+		console.log("Platzhalter für Attribute");
+		//Platzhalter für Attributes
+		$('<div/>', {
+			'id' : 'div_createDialog_attr',
+//			'style' : 'border: 1px solid red'
+		})
+		.appendTo($('#dialog_create'));
+		
+		//Platzhalter für Mixins
+		$('<div/>', {
+			'id' : 'div_createDialog_mixins',
+//			'style' : 'border: 1px solid red'
+		})
+		.appendTo($('#dialog_create'));
+		
+		//selectKind
+		console.log("Select Kind");
+		$('<select/>', {
+			'id' : 'selectKind',
+		})
+		.prependTo($('#dialog_create'));
+		$.each(kinds, function(key, value){
+			$('<option/>', {
+				'html' : value,
+				'value' : value
+			})
+			.appendTo($('#selectKind'));
+		});
+		console.log("selectKind zum SelectMenu machen");
+		$('#selectKind').selectmenu({
+			style: "popup;"
+		});
+		console.log("Attribute drucken");
+		$('#selectKind')
+		.ready(function() {
+			printCreateDialogAttributes($('#selectKind').val());
+			printCreateDialogMixins();
+		})
+		.change(function() {
+			printCreateDialogAttributes($('#selectKind').val());
+		})
+	}
+});
+}
+
+function printCreateDialogAttributes(kind) {
+	//Attribute-Div leeren
+	$('#div_createDialog_attr').text("");
+	console.log("Kind:" +kind);
+	var Attr = getAttributesOfKind(kind);
+	$.each(Attr, function(key, value){
+		$('<div/>', {
+			'id': 'key',
+			'style' :  'float: left; text-align: left; width: 120px; margin:5px',
+			'html' : ucwords(getWordAfterChar(key, '.'))
+		}).after(
+				$('<input/>', {
+					'id': key,
+					'style' :  'text-align: left; width: 110px; margin: 5px',
+					'html' : ucwords(getWordAfterChar(key, '.'))
+				})
+		)
+		.appendTo($('#div_createDialog_attr'));
+	});
+}
+
+function printCreateDialogMixins() {
+	$('#div_createDialog_mixins').text("");
+	$('<select/>', {
+			'id' : 'selectMixin',
+	})
+	.insertAfter($('#div_createDialog_attr'));
+	// kein Mixin auswählen
+	$('<option/>', {
+		'html' : "------",
+		'value' : "-1"
+	})
+	.appendTo($('#selectMixin'));
+	$.each(Mixins, function(key, value){
+		console.log("Each mixin: "+value)
+		$('<option/>', {
+			'html' : value.term,
+			'value' : value.term
+		})
+		.appendTo($('#selectMixin'));
+	});
+	$('#selectMixin').selectmenu({
+		style: "popup;"
+	});
+	$('#selectMixin')
+	.ready(function() {
+		printCreateDialogMixinsAttributes($('#selectMixin').val());
+	})
+	.change(function() {
+		printCreateDialogMixinsAttributes($('#selectMixin').val());
+	})
+}
+
+function printCreateDialogMixinsAttributes(mixin) {
+	//Attribute-Div leeren
+	$('#div_createDialog_mixins').text("");
+	var Attr = getAttributesOfMixin(mixin);
+	console.log("Attr:" +Attr);
+	if(Attr) {
+		$.each(Attr.attributes, function(key, value){
+			$('<div/>', {
+				'id': 'key',
+				'style' :  'float: left; text-align: left; width: 120px; margin:5px',
+				'html' : ucwords(getWordAfterChar(key, '.'))
+			}).after(
+					$('<input/>', {
+						'id': key,
+						'style' :  'text-align: left; width: 110px; margin: 5px',
+						'html' : ucwords(getWordAfterChar(key, '.'))
+					})
+			)
+			.appendTo($('#div_createDialog_mixins'));
+		});
+	}
+	
+	
+}
+
+/*
+ * 
+ * HELPER
+ * 
+ */
+
+function getOcciCoreTitlebyOcciCoreId(occiCoreId) {
+	return Resources[occiCoreId]["occi.core.title"]==undefined?$.i18n._("noname"):Resources[occiCoreId]["occi.core.title"];
 }
 
 function getActionsOfType(type) {
@@ -222,44 +443,5 @@ function getActionsOfType(type) {
 		}
 	});
 	return actions;
-	
-}
-
-function printDetailDialogBox(type, key) {
-	var resId = key
-	var actions = getActionsOfType(type);
-	var string = new Array();
-	$('<div/>', {
-		'id': 'dialog'+ key,
-		'style' :  'float: left; text-align: center',
-	})
-	.dialog({
-		autoOpen: false,
-		title: $.i18n._("Create")+": "+$.i18n._(type),
-		resizable: false,
-		draggable: true,
-		close: function(ev, ui) {
-		    $(this).remove();
-		 }
-	}).dialog('open');
-	if($('#dialog'+resId).dialog("isOpen")) {
-		$("#dialog"+key).one( "clickoutside", function(event){
-			$("#dialog"+key).dialog().parent().one( "clickoutside", function(event){
-				$(this).children().remove();
-				$(this).remove();
-			});
-		});
-	};
-	$.each(actions, function(key, value){
-		actionName = getWordAfterChar(value, '#');
-		$('<button/>', {
-			'class' : 'button action ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all',
-			'html' : actionName,
-		})
-		.appendTo($('<div/>', {
-			'id' : "div"+actionName+"resId",
-		}))
-		.appendTo($('#dialog'+resId))
-	});
 	
 }
