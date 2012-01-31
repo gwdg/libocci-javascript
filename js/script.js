@@ -308,9 +308,16 @@ $('#p_a_create').bind('click', function() {
 		})
 		.appendTo($('#dialog_create'));
 		
+		//Platzhalter für AddCategories-Buttons
+		$('<div/>', {
+			'id' : 'div_addCategories',
+//			'style' : 'border: 1px solid red'
+		})
+		.appendTo($('#dialog_create'));
+		
 		//selectKind
 		console.log("Select Kind");
-		$('<select/>', {
+		var select = $('<select/>', {
 			'id' : 'selectKind',
 		})
 		.prependTo($('#dialog_create'));
@@ -321,18 +328,18 @@ $('#p_a_create').bind('click', function() {
 			})
 			.appendTo($('#selectKind'));
 		});
-		console.log("selectKind zum SelectMenu machen");
-		$('#selectKind').selectmenu({
-			style: "popup;"
-		});
+		select.combobox({
+	        selected: function(event, ui) {
+	        	printCreateDialogAttributes($('#selectKind').val());
+				$("#dialog_create").dialog('option', 'position', 'center');
+	        }
+	    });
 		console.log("Attribute drucken");
 		$('#selectKind')
 		.ready(function() {
 			printCreateDialogAttributes($('#selectKind').val());
-			printCreateDialogMixins();
-		})
-		.change(function() {
-			printCreateDialogAttributes($('#selectKind').val());
+			printCreateDialogAddCategories();
+			$("#dialog_create").dialog('option', 'position', 'center');
 		})
 	}
 });
@@ -360,40 +367,69 @@ function printCreateDialogAttributes(kind) {
 }
 
 function printCreateDialogMixins() {
+	var divMixin = $('<div/>', {
+		'class': 'divMixin',
+	});
 	$('#div_createDialog_mixins').text("");
-	$('<select/>', {
-			'id' : 'selectMixin',
+	var select = $('<select/>', {
+			'class' : 'selectMixin',
 	})
-	.insertAfter($('#div_createDialog_attr'));
-	// kein Mixin auswählen
-	$('<option/>', {
-		'html' : "------",
-		'value' : "-1"
-	})
-	.appendTo($('#selectMixin'));
+	
+	
+	
 	$.each(Mixins, function(key, value){
 		console.log("Each mixin: "+value)
 		$('<option/>', {
 			'html' : value.term,
 			'value' : value.term
 		})
-		.appendTo($('#selectMixin'));
+		.appendTo(select);
 	});
-	$('#selectMixin').selectmenu({
-		style: "popup;"
+	
+	
+	
+	divMixin.insertAfter($('#div_createDialog_attr'));
+	
+	var selectBox = $('<div/>', {
+		'class': 'selectBox',
+		'style' : 'text-align: left; float: left; width: 280px'
 	});
-	$('#selectMixin')
+	selectBox.insertAfter($('#div_createDialog_attr'));
+	select.appendTo(selectBox);
+	
+	select
 	.ready(function() {
-		printCreateDialogMixinsAttributes($('#selectMixin').val());
+		printCreateDialogMixinsAttributes(select.val(), divMixin);
+		$("#dialog_create").dialog('option', 'position', 'center');
+	});
+		
+	select.combobox({
+        selected: function(event, ui) {
+        	printCreateDialogMixinsAttributes(select.val(), divMixin);
+    		$("#dialog_create").dialog('option', 'position', 'center');
+        }
+    });
+	
+	var deleteSelect = $('<button/>', {
+		'class' : 'deleteSelectMixin',
+		'html' : '&nbsp;',
+		'style' : 'width: 38px'
 	})
-	.change(function() {
-		printCreateDialogMixinsAttributes($('#selectMixin').val());
-	})
+	.button({
+        icons: {
+            primary: "ui-icon-minusthick"
+        }
+    })
+    .bind('click', function() {
+    	deleteSelect.parent().next().remove();
+    	deleteSelect.parent().remove();
+    })
+	.appendTo(selectBox);
 }
 
-function printCreateDialogMixinsAttributes(mixin) {
+function printCreateDialogMixinsAttributes(mixin, tmp) {
 	//Attribute-Div leeren
-	$('#div_createDialog_mixins').text("");
+	$(tmp).text("");
 	var Attr = getAttributesOfMixin(mixin);
 	console.log("Attr:" +Attr);
 	if(Attr) {
@@ -409,12 +445,28 @@ function printCreateDialogMixinsAttributes(mixin) {
 						'html' : ucwords(getWordAfterChar(key, '.'))
 					})
 			)
-			.appendTo($('#div_createDialog_mixins'));
+			.appendTo(tmp);
 		});
 	}
-	
-	
 }
+
+function printCreateDialogAddCategories() {
+	$('<button/>', {
+		'id': 'addMixin',
+		'style' :  'text-align: center; margin:5px;',
+		'html' : "Add Mixin"
+	})
+	.button({
+        icons: {
+            secondary: "ui-icon-circle-plus"
+        }
+    })
+    .bind('click', function() {
+    	printCreateDialogMixins();
+    })
+	.appendTo($('#div_addCategories'));
+}
+
 
 /*
  * 
