@@ -93,3 +93,32 @@ div#div_select_lang {
 	width: 140px;
 	text-align: center;
 }
+
+div.attributes {
+	float: left; 
+	text-align: left; 
+	width: 120px;
+	margin:5px;
+}
+
+label.attributes {
+	float: left; 
+	text-align: left; 
+	width: 60px;
+	margin:5px;
+}
+
+div.selectBox {
+	overflow: hidden;
+}
+
+div.container {
+	margin: 5px 0 5px 0;
+	padding: 4px 0 0 0;
+}
+
+.comboBox {
+	width: 122px;  
+	border-right:none'
+}
+
