@@ -9,6 +9,7 @@ select {
 	width: 200px;
 }
 
+
 /* Main
    -------------------------------- */
 
@@ -72,6 +73,11 @@ div#div_select_lang {
 .button { 
 	padding: .5em 1em; 
 	text-decoration: none; 
+}
+
+.button_delete {
+	width: 26px;
+	height: 26px;
 }
 
 .button_create {

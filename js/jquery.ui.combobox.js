@@ -5,7 +5,7 @@
 				select = this.element.hide(),
 				selected = select.children( ":selected" ),
 				value = selected.val() ? selected.text() : "";
-			var input = this.input = $( "<input>", {'disabled':'disabled', 'class': 'ui-button', 'width': '150px'} )
+			var input = this.input = $( "<input>", {'disabled':'disabled', 'class': 'ui-menu ui-widget ui-widget-content ui-corner-left ui-state-default', 'style' : 'width: 150px;  border-right:none'} )
 				.insertAfter( select )
 				.val( value )
 				.autocomplete({
@@ -65,6 +65,7 @@
 
 			this.button = $( "<button type='button'>&nbsp;</button>" )
 				.attr( "tabIndex", -1 )
+				.attr( "style", "width: 26px; height: 26px; border-left:none" )
 				.attr( "title", "Show All Items" )
 				.insertAfter( input )
 				.button({

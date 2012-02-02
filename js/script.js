@@ -9,6 +9,8 @@ $(document).ready(function(){
 var Resources = {};
 var Attr = {};
 var Mixins = {};
+var Kinds = {};
+var Links = {};
 
 var kinds = new Array();
 
@@ -140,6 +142,7 @@ function getAttributesOfMixin(mixin) {
 }
 
 function getAllMixins() {
+	var Out = {}
 	$.ajax({	
 		url: "all.json",
 		dataType: 'json',
@@ -150,11 +153,41 @@ function getAllMixins() {
 	    		$.each(value, function(key, value){
 	    			Obj[key] = value;
 	    		});
-	    		Mixins[value.term] = Obj;
+	    		Out[value.term] = Obj;
 	    	});  	
 	    }
 	});
-	return Mixins;
+	return Out;
+}
+
+function getAllKinds() {
+	var Out = {};
+	$.ajax({	
+		url: "all.json",
+		dataType: 'json',
+		async: false,
+	    success: function(data){ 
+	    	$.each(data.kinds, function(key, value){
+	    		var Obj = {};
+	    		$.each(value, function(key, value){
+	    			Obj[key] = value;
+	    		});
+	    		Out[value.term] = Obj;
+	    	});  	
+	    }
+	});
+	return Out;
+}
+
+function getAllLinks() {
+	var AllKinds = getAllKinds();
+	var Out = {};
+	$.each(AllKinds, function(key, value){
+		if(value.related != null) 
+			if(getWordAfterChar(value.related, '#') == "link")
+				Out[value.term] = value;
+	});
+	return Out;
 }
 
 /*
@@ -164,9 +197,10 @@ function getAllMixins() {
  */
 
 function printDashboard(resources, links) {
-	getAllMixins();
-	
-	printCreateResourceButton();
+	Kinds = getAllKinds();
+	Links = getAllLinks();
+	Mixins = getAllMixins();
+	printButtonCreateResource();
 	printSections(kinds);
 	printResources(resources);
 	
@@ -220,12 +254,12 @@ function printResources(resources) {
 			'style': 'display:none; text-align: left',
 			html: details
 		}).bind('click', function() {
-		  printActionsDialogBox(Collection.Type, resourceId);
+		  printDialogActions(Collection.Type, resourceId);
 		}).appendTo('#selectable-'+Collection.Type);
 	})
 }
 
-function printActionsDialogBox(type, resourceId) {
+function printDialogActions(type, resourceId) {
 	var type2 = type; 
 	var actions = getActionsOfType(type);
 	var string = new Array();
@@ -273,13 +307,33 @@ function printDetails(ResourceId, key) {
  * 
  */
 
-function printCreateResourceButton() {
-$('#page').prepend($('<div><p><a class="ui-state-default ui-corner-all button_create" id="p_a_create'+'" href="#">'+$.i18n._("Create_new_resource")+'</a></p></div>'))
+function printButtonCreateResource() {
+	
+$('#page')
+.prepend($('<div/>', {
+	'id' : 'div_createEntityContainer',
+	'class' : 'ui-widget-header ui-corner-all',
+	'style' : 'margin: 10px 0 10px 0'
+}));
 
-$('#p_a_create').bind('click', function() {
+$('#div_createEntityContainer')
+.append($('<button/>', {
+	'id' : 'button_create_resource',
+	'html' : $.i18n._("Create_new_resource"),
+	'style' : 'margin: 10px 0 10px 10px'
+	}).button())
+.append($('<button/>', {
+	'id' : 'button_create_link',
+	'html' : $.i18n._("Create_new_link"),
+	'style' : 'margin: 10px'
+	}).button())
+.append($('<br/>'));
+
+
+$('#button_create_resource').bind('click', function() {
 	$('<div/>', {
-		'id': 'dialog_create',
-		'style' :  'float: left; text-align: center',
+		'id': 'dialog_create_resource',
+		'style' :  'float: left; text-align: left',
 	})
 	.dialog({
 		autoOpen: true,
@@ -292,35 +346,34 @@ $('#p_a_create').bind('click', function() {
 		 }
 	});
 	
-	if($('#dialog_create').dialog("isOpen")) {
-		console.log("Platzhalter für Attribute");
+	if($('#dialog_create_resource').dialog("isOpen")) {
 		//Platzhalter für Attributes
 		$('<div/>', {
-			'id' : 'div_createDialog_attr',
+			'id' : 'div_createDialog_kind_attr',
 //			'style' : 'border: 1px solid red'
 		})
-		.appendTo($('#dialog_create'));
-		
-		//Platzhalter für Mixins
-		$('<div/>', {
-			'id' : 'div_createDialog_mixins',
-//			'style' : 'border: 1px solid red'
-		})
-		.appendTo($('#dialog_create'));
+		.appendTo($('#dialog_create_resource'));
 		
 		//Platzhalter für AddCategories-Buttons
 		$('<div/>', {
-			'id' : 'div_addCategories',
+			'id' : 'div_add_buttons',
+			'style' : 'text-align: center',
 //			'style' : 'border: 1px solid red'
 		})
-		.appendTo($('#dialog_create'));
+		.appendTo($('#dialog_create_resource'));
 		
-		//selectKind
-		console.log("Select Kind");
+		var selectBox = $('<div/>', {
+			'class': 'selectBox',
+		})
+		
 		var select = $('<select/>', {
 			'id' : 'selectKind',
+			'name' : 'selectKind',
+			'style' : 'float: right'
 		})
-		.prependTo($('#dialog_create'));
+		.appendTo(selectBox);
+		
+		selectBox.prependTo($('#dialog_create_resource'));
 		$.each(kinds, function(key, value){
 			$('<option/>', {
 				'html' : value,
@@ -328,18 +381,25 @@ $('#p_a_create').bind('click', function() {
 			})
 			.appendTo($('#selectKind'));
 		});
+		var label = $('<label/>', {
+			'html' : 'Kind',
+			'for' : 'selectKind',
+			'style' : 'margin:5px; width:60px',
+		}).insertBefore(select);
+
 		select.combobox({
 	        selected: function(event, ui) {
 	        	printCreateDialogAttributes($('#selectKind').val());
-				$("#dialog_create").dialog('option', 'position', 'center');
+				$("#dialog_create_resource").dialog('option', 'position', 'center');
 	        }
 	    });
 		console.log("Attribute drucken");
 		$('#selectKind')
 		.ready(function() {
 			printCreateDialogAttributes($('#selectKind').val());
-			printCreateDialogAddCategories();
-			$("#dialog_create").dialog('option', 'position', 'center');
+			printButtonAddMixin();
+			printButtonAddLink();
+			$("#dialog_create_resource").dialog('option', 'position', 'center');
 		})
 	}
 });
@@ -347,7 +407,7 @@ $('#p_a_create').bind('click', function() {
 
 function printCreateDialogAttributes(kind) {
 	//Attribute-Div leeren
-	$('#div_createDialog_attr').text("");
+	$('#div_createDialog_kind_attr').text("");
 	console.log("Kind:" +kind);
 	var Attr = getAttributesOfKind(kind);
 	$.each(Attr, function(key, value){
@@ -362,20 +422,25 @@ function printCreateDialogAttributes(kind) {
 					'html' : ucwords(getWordAfterChar(key, '.'))
 				})
 		)
-		.appendTo($('#div_createDialog_attr'));
+		.appendTo($('#div_createDialog_kind_attr'));
 	});
 }
 
-function printCreateDialogMixins() {
+function printSelectMixin() {
 	var divMixin = $('<div/>', {
-		'class': 'divMixin',
+		'class': 'divMixin ui-widget-content ui-corner-all',
+		'style' : 'margin-top: 5px;'
+		
 	});
-	$('#div_createDialog_mixins').text("");
+
+	var selectBox = $('<div/>', {
+		'class': 'selectBox',
+		'style' : 'text-align: left; float: left; width: 280px'
+	}).appendTo(divMixin);
+	
 	var select = $('<select/>', {
-			'class' : 'selectMixin',
-	})
-	
-	
+			'class' : 'selectMixin ui-menu ui-widget ui-widget-content ui-corner-all',
+	});
 	
 	$.each(Mixins, function(key, value){
 		console.log("Each mixin: "+value)
@@ -385,41 +450,96 @@ function printCreateDialogMixins() {
 		})
 		.appendTo(select);
 	});
-	
-	
-	
-	divMixin.insertAfter($('#div_createDialog_attr'));
-	
-	var selectBox = $('<div/>', {
-		'class': 'selectBox',
-		'style' : 'text-align: left; float: left; width: 280px'
-	});
-	selectBox.insertAfter($('#div_createDialog_attr'));
 	select.appendTo(selectBox);
+	divMixin.insertAfter($('#div_createDialog_kind_attr'));
+	
+	var divMixinAttr = $('<div/>', {
+		'class': 'divMixinAttr',
+	}).appendTo(divMixin);
+	
+
 	
 	select
 	.ready(function() {
-		printCreateDialogMixinsAttributes(select.val(), divMixin);
-		$("#dialog_create").dialog('option', 'position', 'center');
+		printSelectMixinAttributes(select.val(), divMixinAttr);
+		$("#dialog_create_resource").dialog('option', 'position', 'center');
 	});
 		
 	select.combobox({
         selected: function(event, ui) {
-        	printCreateDialogMixinsAttributes(select.val(), divMixin);
-    		$("#dialog_create").dialog('option', 'position', 'center');
+        	printSelectMixinAttributes(select.val(), divMixinAttr);
+    		$("#dialog_create_resource").dialog('option', 'position', 'center');
         }
     });
 	
 	var deleteSelect = $('<button/>', {
-		'class' : 'deleteSelectMixin',
+		'class' : 'button_delete deleteSelectMixin',
 		'html' : '&nbsp;',
-		'style' : 'width: 38px'
 	})
 	.button({
         icons: {
             primary: "ui-icon-minusthick"
-        }
+        },
+        text: false,
     })
+    .width("26")
+    .bind('click', function() {
+    	deleteSelect.parent().next().remove();
+    	deleteSelect.parent().parent().remove();
+    })
+	.appendTo(selectBox);
+}
+
+function printSelectLink() {
+	var divLink = $('<div/>', {
+		'class' : 'divLink ui-widget-content ui-corner-all',
+		'style' : 'text-align:left; margin-top: 5px;'
+	});
+
+	var select = $('<select/>', {
+			'class' : 'selectLink',
+	});
+	
+	$.each(Links, function(key, value){
+		$('<option/>', {
+			'html' : value.term,
+			'value' : value.term
+		})
+		.appendTo(select);
+	});
+	
+	divLink.insertBefore($('#div_add_buttons'));
+	
+	var selectBox = $('<div/>', {
+		'class': 'selectBox',
+	});
+	selectBox.appendTo(divLink);
+	select.appendTo(selectBox);
+		
+	select
+	.ready(function() {
+		printSelectLinkTarget(divLink);
+//		$("#dialog_create_resource").dialog('option', 'position', 'center');
+	});
+		
+	select.combobox({
+        selected: function(event, ui) {
+//        	printSelectLinkTarget(divLink);
+//    		$("#dialog_create_resource").dialog('option', 'position', 'center');
+        }
+    });
+	
+	var deleteSelect = $('<button/>', {
+		'class' : 'button_delete deleteSelectLink',
+		'html' : '&nbsp;',
+	})
+	.button({
+        icons: {
+            primary: "ui-icon-minusthick"
+        },
+        text: false
+    })
+    .width("26")
     .bind('click', function() {
     	deleteSelect.parent().next().remove();
     	deleteSelect.parent().remove();
@@ -427,7 +547,7 @@ function printCreateDialogMixins() {
 	.appendTo(selectBox);
 }
 
-function printCreateDialogMixinsAttributes(mixin, tmp) {
+function printSelectMixinAttributes(mixin, tmp) {
 	//Attribute-Div leeren
 	$(tmp).text("");
 	var Attr = getAttributesOfMixin(mixin);
@@ -436,12 +556,12 @@ function printCreateDialogMixinsAttributes(mixin, tmp) {
 		$.each(Attr.attributes, function(key, value){
 			$('<div/>', {
 				'id': 'key',
-				'style' :  'float: left; text-align: left; width: 120px; margin:5px',
+				'style' :  'float: left; text-align: left; width: 120px; margin-bottom:5px',
 				'html' : ucwords(getWordAfterChar(key, '.'))
 			}).after(
 					$('<input/>', {
 						'id': key,
-						'style' :  'text-align: left; width: 110px; margin: 5px',
+						'style' :  'text-align: left; width: 110px; margin: 3px 0 3px 0',
 						'html' : ucwords(getWordAfterChar(key, '.'))
 					})
 			)
@@ -450,9 +570,27 @@ function printCreateDialogMixinsAttributes(mixin, tmp) {
 	}
 }
 
-function printCreateDialogAddCategories() {
+function printSelectLinkTarget(tmp) {
+	var select = $('<select/>', {
+		'class' : 'selectLinkTarget',
+	});
+	
+	$.each(Resources, function(key, value){
+		var resourceId = value["occi.core.id"];
+		var title = getOcciCoreTitlebyOcciCoreId(resourceId);
+		$('<option/>', {
+			'html' : title,
+			'value' : resourceId
+		})
+		.appendTo(select);
+	});
+	select.appendTo(tmp);
+	select.combobox();
+}
+
+function printButtonAddMixin() {
 	$('<button/>', {
-		'id': 'addMixin',
+		'id': 'buttonAddMixin',
 		'style' :  'text-align: center; margin:5px;',
 		'html' : "Add Mixin"
 	})
@@ -462,9 +600,26 @@ function printCreateDialogAddCategories() {
         }
     })
     .bind('click', function() {
-    	printCreateDialogMixins();
+    	printSelectMixin();
     })
-	.appendTo($('#div_addCategories'));
+	.appendTo($('#div_add_buttons'));
+}
+
+function printButtonAddLink() {
+	$('<button/>', {
+		'id': 'buttonAddLink',
+		'style' :  'text-align: center; margin:5px;',
+		'html' : "Add Link"
+	})
+	.button({
+        icons: {
+            secondary: "ui-icon-circle-plus"
+        }
+    })
+    .bind('click', function() {
+    	printSelectLink();
+    })
+	.appendTo($('#div_add_buttons'));
 }
 
 
