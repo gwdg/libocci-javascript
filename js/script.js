@@ -88,25 +88,16 @@ function getLinkObj(value) {
 }
 
 function getResourcesWithLinks(resources, links) {
-	$.each(resources, function(key_r, value_r){
-		var id = value_r.CoreId;
-		$.each(links, function(key_l, value_l) {
-			var source = value_l.Source;
-			var target = value_l.Target;
-			if(id == target){
-				var resource = resources[key_r];
-				resource.LinkedTo = source;
-			};
+	$.each(resources, function(key, Resource){
+		$.each(links, function(key_l, Link){
+			if(Resource["occi.core.id"] == Link.Source) {
+				resources[key].LinkedTo = Link.Target;
+			}
+			if(Resource["occi.core.id"] == Link.Target) {
+				resources[key].LinkedTo = Link.Source;
+			}
 		});
-		$.each(links, function(key_l, value_l) {
-			var source = value_l.Source;
-			var target = value_l.Target;
-			if(id == source){
-				var resource = resources[key_r];
-				resource.LinkedTo = target;
-			};
-		});
-	});
+	})
 	return resources;
 }
 
@@ -200,6 +191,7 @@ function printDashboard(resources, links) {
 	Mixins = getAllMixins();
 	printButtonCreateEntity();
 	createDialogCreateResource();
+	createDialogCreateLink();
 	printSections(kinds);
 	printResources(resources);
 	
@@ -355,5 +347,4 @@ function getActionsOfType(type) {
 		}
 	});
 	return actions;
-	
 }

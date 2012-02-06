@@ -31,7 +31,6 @@ function createDialogCreateResource() {
 			//Platzhalter für Attributes
 			$('<div/>', {
 				'id' : 'div_createDialog_kind_attr',
-//				'style' : 'border: 1px solid red'
 			})
 			.appendTo($('#dialog_create_resource'));
 			
@@ -39,7 +38,6 @@ function createDialogCreateResource() {
 			$('<div/>', {
 				'id' : 'div_add_buttons',
 				'style' : 'text-align: center',
-//				'style' : 'border: 1px solid red'
 			})
 			.appendTo($('#dialog_create_resource'));
 			
@@ -80,6 +78,7 @@ function createDialogCreateResource() {
 				printSelectKindAttributes($('#selectKind').val());
 				printButtonAddMixin();
 				printButtonAddLink();
+				printButtonSave();
 				$("#dialog_create_resource").dialog('option', 'position', 'center');
 			})
 		}
@@ -331,5 +330,19 @@ function printButtonAddLink() {
     .bind('click', function() {
     	printSelectLink();
     })
+	.appendTo($('#div_add_buttons'));
+}
+
+function printButtonSave() {
+	$('<br/>')
+	.appendTo($('#div_add_buttons'));
+	$('<button/>', {
+		'html' : 'Save',
+		'style' : 'margin: 5px;'
+	})
+	.button()
+	.bind('click', function() {
+		$('#dialog_create_resource').remove();
+	})
 	.appendTo($('#div_add_buttons'));
 }
