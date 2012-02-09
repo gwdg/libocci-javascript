@@ -51,15 +51,16 @@ function createDialogCreateResource() {
 				'style' : 'float: right'
 			})
 			.appendTo(selectBox);
-			
 			selectBox.prependTo(divKind);
 			divKind.prependTo($('#dialog_create_resource'));
-			$.each(kinds, function(key, value){
-				$('<option/>', {
-					'html' : value,
-					'value' : value
-				})
-				.appendTo($('#selectKind'));
+			$.each(Kinds, function(key, value){
+				if(value.related != null)
+					if(getWordAfterChar(value.related, '#') == "resource")
+						$('<option/>', {
+							'html' : value.term,
+							'value' : value.term
+						})
+						.appendTo($('#selectKind'));
 			});
 			var label = $('<label/>', {
 				'html' : 'Kind',
@@ -88,7 +89,6 @@ function createDialogCreateResource() {
 function printSelectKindAttributes(kind) {
 	//Attribute-Div leeren
 	$('#divKindAttr').text("");
-	console.log("Kind:" +kind);
 	
 	
 	
@@ -112,7 +112,6 @@ function printSelectKindAttributes(kind) {
 function printSelectMixin() {
 	var divMixin = $('<div/>', {
 		'class': 'divMixin ui-widget-content ui-corner-all container',
-		
 	});
 
 	var selectBox = $('<div/>', {
@@ -126,7 +125,6 @@ function printSelectMixin() {
 	
 	
 	$.each(Mixins, function(key, value){
-		console.log("Each mixin: "+value)
 		$('<option/>', {
 			'html' : value.term,
 			'value' : value.term
@@ -184,7 +182,6 @@ function printSelectMixinAttributes(mixin, tmp) {
 	//Attribute-Div leeren
 	$(tmp).text("");
 	var Attr = getAttributesOfMixin(mixin);
-	console.log("Attr:" +Attr);
 	if(Attr) {
 		$.each(Attr.attributes, function(key, value){
 			$('<div/>', {
@@ -211,10 +208,12 @@ function printSelectLink() {
 		'style' : 'text-align:left; margin-top: 5px;'
 	});
 
-	var select = $('<select/>', {
-			'class' : 'selectLink',
-			'name' : 'selectLink'
-	});
+	var select = 
+	$('<select/>', {
+		'id' : 'selectLink',
+		'class' : 'selectLink',
+		'name' : 'selectLink'
+	})
 	
 	$.each(Links, function(key, value){
 		$('<option/>', {
@@ -240,14 +239,22 @@ function printSelectLink() {
 		'class' : 'attributes'
 	}).insertBefore(selectBox);
 	
+	var divLinkAttr = $('<div/>', {
+		'id' : 'divLinkAttr',
+		'class': 'divLinkAttr',
+	});
+	divLinkAttr.appendTo(divLink);
+	
 	select
 	.ready(function() {
+		printSelectLinkAttributes($('#selectLink').val(), divLinkAttr);
 		printSelectLinkTarget(divLink);
 //		$("#dialog_create_resource").dialog('option', 'position', 'center');
 	});
 		
 	select.combobox({
         selected: function(event, ui) {
+        	printSelectLinkAttributes($('#selectLink').val(), divLinkAttr);
 //        	printSelectLinkTarget(divLink);
 //    		$("#dialog_create_resource").dialog('option', 'position', 'center');
         }
@@ -271,7 +278,26 @@ function printSelectLink() {
 	.appendTo(selectBox);
 }
 
-
+function printSelectLinkAttributes(kind, div) {
+	div.text("");
+	
+	var Attr = getAttributesOfKind(kind);
+	$.each(Attr, function(key, value){
+		$('<div/>', {
+			'id': 'key',
+			'class' : 'attributes',
+			'html' : ucwords(getWordAfterChar(key, '.'))
+		}).after(
+				$('<input/>', {
+					'id': key,
+					'style' :  'text-align: left; width: 110px; margin: 5px',
+					'html' : ucwords(getWordAfterChar(key, '.'))
+				})
+		).appendTo(div);
+		
+	});
+	
+}
 
 function printSelectLinkTarget(tmp) {
 	var select = $('<select/>', {
