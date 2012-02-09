@@ -211,6 +211,7 @@ function printSections(kinds) {
 		$('<div/>', {
 			'id': "section-"+value,
 			'class': 'marginal ui-widget-content ui-corner-all',
+			'text-align' : 'center'
 		}).appendTo(
 		$('<div/>', {
 			'id': "frame-"+value,
@@ -226,16 +227,18 @@ function printResources(resources) {
 		var resourceId = value["occi.core.id"];
 		var Resource = {};
 		getOcciCoreTitlebyOcciCoreId(resourceId);
+		
 		// print Selectables
 		$('<div/>', {
 			'id': Collection.Type+key+'head',
 			'class': 'ui-widget-content ui-corner-all selectable',
 			html: getOcciCoreTitlebyOcciCoreId(resourceId)
-		}).bind('click', function() {
-		  $('#'+Collection.Type+key).toggle();
-		  printDetails(resourceId, key);
-		}).appendTo('#selectable-'+Collection.Type);
-		
+		})
+		.bind('click', function() {
+			printDetails(resourceId, key);
+			$('#'+Collection.Type+key).toggle();
+		})
+		.appendTo('#selectable-'+Collection.Type);
 		
 		var details = ""
 			
@@ -244,9 +247,16 @@ function printResources(resources) {
 			'class': 'ui-widget-content ui-corner-all selectable',
 			'style': 'display:none; text-align: left',
 			html: details
-		}).bind('click', function() {
+		}).one('click', function() {
 		  printDialogActions(Collection.Type, resourceId);
-		}).appendTo('#selectable-'+Collection.Type);
+		})
+		.appendTo('#selectable-'+Collection.Type);
+		printDetailButtons(resourceId, key);
+		$('#'+Collection.Type+key+'head')
+		.bind('click', function(){
+			$('#'+Collection.Type+key+"_buttons").toggle();
+		})
+		
 	})
 }
 
@@ -284,12 +294,91 @@ function printDialogActions(type, resourceId) {
 }
 
 function printDetails(ResourceId, key) {
+	
 	var details = "";
 	var Resource = Resources[ResourceId];
 	$.each(Resource, function(key, value){
 		if(value!=undefined) details += ucwords(getWordAfterChar(key, '.')) + ": "+value + "<br/>";
 	});
 	$('#'+Resource.Type+key).html(details);
+}
+
+function printDetailButtons(ResourceId, key) {
+	var Resource = Resources[ResourceId];
+	var detailBox = $('<div/>', {
+		'id' : Resource.Type+key+"_buttons",
+		'name' : 'detailBox',
+		'style' : 'text-align:center; display:none'
+	}).insertAfter($('#'+Resource.Type+key));
+	
+	
+	var editResource = $('<button/>', {
+		'class' : 'button_delete deleteResource',
+		'html' : '&nbsp;',
+	})
+	.button({
+        icons: {
+            primary: "ui-icon-pencil"
+        },
+        text: false,
+    })
+    .width("26")
+    .bind('click', function() {
+    	$('<div/>', {
+    		'html' : 'Ressource '+ResourceId+' bearbeiten'
+    	})
+    	.dialog({
+			autoOpen: true,
+    		resizable: false,
+    		width:340,
+    		title: 'Bearbeiten',
+			height:180,
+			modal: true,
+			buttons: {
+				"Speichern": function() {
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+    })
+    .appendTo(detailBox)
+    
+	var deleteResource = $('<button/>', {
+		'class' : 'button_delete deleteResource',
+		'html' : '&nbsp;',
+	})
+	.button({
+        icons: {
+            primary: "ui-icon-trash"
+        },
+        text: false,
+    })
+    .width("26")
+    .bind('click', function() {
+    	$('<div/>', {
+    		'html' : 'Wollen Sie diese Ressource wirklich entfernen?'
+    	})
+    	.dialog({
+			autoOpen: true,
+    		resizable: false,
+    		width:340,
+    		title: 'Löschen bestätigen',
+			height:180,
+			modal: true,
+			buttons: {
+				"Ja": function() {
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+    })
+    .appendTo(detailBox)
 }
 
 /*
