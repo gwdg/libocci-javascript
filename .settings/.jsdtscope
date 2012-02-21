@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="lang/|vendor/jGrowl/|vendor/" kind="src" path="js"/>
+	<classpathentry kind="src" path="js/lang"/>
+	<classpathentry excluding="jGrowl/" kind="src" path="js/vendor"/>
+	<classpathentry kind="src" path="js/vendor/jGrowl"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

@@ -61,6 +61,7 @@ div#div_select_lang {
 	text-align: center;
 	width: auto;
 	height: auto;
+	overflow: auto;
 }
 
 .selectable:HOVER {
@@ -121,4 +122,7 @@ div.container {
 	width: 122px;  
 	border-right:none'
 }
+
+/* jGrowl
+   -------------------------------- */
 

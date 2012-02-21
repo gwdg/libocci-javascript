@@ -1,0 +1,1660 @@
+{
+
+    "collection": [
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/631bb454-13c4-40b5-a236-1a1783827343?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "631bb454-13c4-40b5-a236-1a1783827343",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/1154cb39-ea39-4a3a-a9da-c480968252f4?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "1154cb39-ea39-4a3a-a9da-c480968252f4",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "doyouspeakocci::bac1a015-6ac0-4fd0-862f-9bcedc9fba06",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/143781bc-7c3e-40f2-8f6e-01d4c7cd3145?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "143781bc-7c3e-40f2-8f6e-01d4c7cd3145",
+                "occi.core.title": "How's your quotes escaping? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/83ca6b71-f85e-4451-a153-d820728c449d?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "83ca6b71-f85e-4451-a153-d820728c449d",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/2c0bbc0c-14fe-4397-b2d7-6f47d1652a5a?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "2c0bbc0c-14fe-4397-b2d7-6f47d1652a5a",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::298bfd0f-a724-40fe-a2f7-c493bb9e8d5a",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/c01d3d46-4125-42c9-937b-8a2070b8876a?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "c01d3d46-4125-42c9-937b-8a2070b8876a",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/7bbe7d2a-85aa-4881-a063-9736b309632a?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "7bbe7d2a-85aa-4881-a063-9736b309632a",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/a1cb1931-00b8-46b5-8b6a-b6606280b1e2?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "a1cb1931-00b8-46b5-8b6a-b6606280b1e2",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::2c1b001d-566c-4b83-832e-97f45d9fada3",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/80385514-65df-4e50-bdcf-b97e50230a91?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "80385514-65df-4e50-bdcf-b97e50230a91",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/09a7476d-aab1-4c3f-981b-922fc1a84404?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "09a7476d-aab1-4c3f-981b-922fc1a84404",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/de37df3a-60c5-40d5-8c2d-79a4838114be?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "de37df3a-60c5-40d5-8c2d-79a4838114be",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::31f666fe-7a77-44f6-96cb-f418fb2f2a3a",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/b6daaa50-cae6-4d98-a5de-137eda4839ff?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "b6daaa50-cae6-4d98-a5de-137eda4839ff",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/7badf1d7-23ea-46b9-877d-dbdb6c40c68d?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "links": [
+                {
+                    "title": "My disk",
+                    "target_uri": "http://www.nyren.net/api/storage/ff0fcfee-711f-4f33-8202-f0beac5427a6",
+                    "target_type": [
+                        "http://schemas.ogf.org/occi/infrastructure#storage"
+                    ],
+                    "link_uri": "http://www.nyren.net/api/link/storage/17aef983-945a-4adf-a841-34abd7445fbb",
+                    "link_type": [
+                        "http://schemas.ogf.org/occi/infrastructure#storagelink"
+                    ],
+                    "attributes": {
+                        "occi.storagelink.deviceid": "ide:0:1"
+                    }
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "7badf1d7-23ea-46b9-877d-dbdb6c40c68d",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/696cdbc8-e3d4-4e27-812f-46e0191efc79?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "696cdbc8-e3d4-4e27-812f-46e0191efc79",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/c4e6a14a-3faa-40d3-9c19-9ae20c88404d?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "c4e6a14a-3faa-40d3-9c19-9ae20c88404d",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::5e8064c4-be80-44f4-9fa3-f69077725a49",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/fbf34e04-ac5e-4a64-9394-55d9261fe9e9?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "fbf34e04-ac5e-4a64-9394-55d9261fe9e9",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/b38a17b2-7300-4fb3-8d40-90b8b7907d1f?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "b38a17b2-7300-4fb3-8d40-90b8b7907d1f",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/43cb2e19-f1f6-41fb-81c3-bf10d45ab484?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "43cb2e19-f1f6-41fb-81c3-bf10d45ab484",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::0181400e-a445-43f0-8a7d-5843a2a1029a",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/2349075a-a98e-43e6-9fd9-36e698525ae6?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "2349075a-a98e-43e6-9fd9-36e698525ae6",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/c6296e29-13ec-4e65-9e48-b26d4ac52988?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "c6296e29-13ec-4e65-9e48-b26d4ac52988",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/252dc19b-2035-4ea1-9f76-a4103c4e2435?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "252dc19b-2035-4ea1-9f76-a4103c4e2435",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.hostname": "dyso::4d814782-0fd6-4594-882c-cb226cf7ca20",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 1,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "compute",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Compute Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.compute.architecture": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.cores": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "integer"
+                    },
+                    "occi.compute.hostname": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.compute.speed": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.memory": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "float"
+                    },
+                    "occi.compute.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#start",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#stop",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#restart",
+                    "http://schemas.ogf.org/occi/infrastructure/compute/action#suspend"
+                ],
+                "location": "/api/compute/"
+            },
+            "actions": [
+                {
+                    "title": "Start Compute Resource",
+                    "uri": "/api/compute/48fe4bf6-433d-4867-a170-58306e23d78d?action=start",
+                    "type": "http://schemas.ogf.org/occi/infrastructure/compute/action#start"
+                }
+            ],
+            "attributes": {
+                "occi.core.id": "48fe4bf6-433d-4867-a170-58306e23d78d",
+                "occi.core.title": "Quote escaping m'kay? \", occi.compute.memory=1.0",
+                "occi.compute.architecture": "x86_64",
+                "occi.compute.speed": 2.67,
+                "occi.compute.memory": 3.6,
+                "occi.compute.state": "inactive"
+            }
+        },
+        {
+            "kind": {
+                "term": "storage",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Storage Resource",
+                "related": "http://schemas.ogf.org/occi/core#resource",
+                "attributes": {
+                    "occi.storage.size": {
+                        "mutable": true,
+                        "required": true,
+                        "type": "float"
+                    },
+                    "occi.storage.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "actions": [
+                    "http://schemas.ogf.org/occi/infrastructure/storage/action#online",
+                    "http://schemas.ogf.org/occi/infrastructure/storage/action#offline",
+                    "http://schemas.ogf.org/occi/infrastructure/storage/action#backup",
+                    "http://schemas.ogf.org/occi/infrastructure/storage/action#snapshot",
+                    "http://schemas.ogf.org/occi/infrastructure/storage/action#resize"
+                ],
+                "location": "/api/storage/"
+            },
+            "attributes": {
+                "occi.core.id": "ff0fcfee-711f-4f33-8202-f0beac5427a6",
+                "occi.core.title": "My disk",
+                "occi.storage.size": 25.3
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "2f3f6a4e-0dff-429e-8b86-4f707f32709c",
+                "occi.core.source": "http://www.nyren.net/api/compute/745b9998-abea-42fe-8f5c-76f99fbc612c",
+                "occi.core.target": "http://www.nyren.net/api/network/1c1d8126-8312-4b35-a8b9-1f19c0d4da6c"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "36eb9152-c0ef-497c-99b1-38bb0b77a1f6",
+                "occi.core.source": "http://www.nyren.net/api/compute/5dd54d28-b0cf-4a90-ab52-34ceaf865489",
+                "occi.core.target": "http://www.nyren.net/api/network/efd036f8-6436-4105-b324-91a5e6c3f0bd"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "fb89c984-dc39-4347-b299-63ce993547a8",
+                "occi.core.source": "http://www.nyren.net/api/compute/266c2d30-f849-458a-a006-e3c117857a52",
+                "occi.core.target": "http://www.nyren.net/api/network/687e17ec-5d16-41fb-a1b0-28e242d35c3e"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "193fe147-2f5c-4c48-9718-7592bd2b38a5",
+                "occi.core.source": "http://www.nyren.net/api/compute/26692aaf-0abf-449c-814f-f5aa0ed7b9d5",
+                "occi.core.target": "http://www.nyren.net/api/network/d974e2ae-7fde-479f-b404-a8f6c01e4d46"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "62b7d27e-4b5b-486a-b2c6-e4a943f79771",
+                "occi.core.source": "http://www.nyren.net/api/compute/41bca8f3-e919-4d11-adca-3d58885df54a",
+                "occi.core.target": "http://www.nyren.net/api/network/f259abe2-a21e-4c8c-aab7-f46ffae1acb0"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "1fc2da78-c7d0-4252-8a5d-205c9abb4648",
+                "occi.core.source": "http://www.nyren.net/api/compute/4f8bf529-4c05-480c-a93b-40f3d334b122",
+                "occi.core.target": "http://www.nyren.net/api/network/3afa22ce-bce0-446d-bddf-2eb6d4ef84be"
+            }
+        },
+        {
+            "kind": {
+                "term": "networkinterface",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "NetworkInterface Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.networkinterface.interface": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.mac": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.networkinterface.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/networkinterface/"
+            },
+            "attributes": {
+                "occi.core.id": "319288bd-e421-4aae-9a9e-02773759cbcc",
+                "occi.core.source": "http://www.nyren.net/api/compute/111b5def-6a96-4eea-bb8b-17aa65631637",
+                "occi.core.target": "http://www.nyren.net/api/network/25297570-8fc6-44d0-9d99-3ad709c2e8fd"
+            }
+        },
+        {
+            "kind": {
+                "term": "storagelink",
+                "scheme": "http://schemas.ogf.org/occi/infrastructure#",
+                "title": "Storage Link",
+                "related": "http://schemas.ogf.org/occi/core#link",
+                "attributes": {
+                    "occi.storagelink.deviceid": {
+                        "mutable": true,
+                        "required": true,
+                        "type": "string"
+                    },
+                    "occi.storagelink.mountpoint": {
+                        "mutable": true,
+                        "required": false,
+                        "type": "string"
+                    },
+                    "occi.storagelink.state": {
+                        "mutable": false,
+                        "required": false,
+                        "type": "string"
+                    }
+                },
+                "location": "/api/link/storage/"
+            },
+            "attributes": {
+                "occi.core.id": "17aef983-945a-4adf-a841-34abd7445fbb",
+                "occi.core.source": "http://www.nyren.net/api/compute/7badf1d7-23ea-46b9-877d-dbdb6c40c68d",
+                "occi.core.target": "http://www.nyren.net/api/storage/ff0fcfee-711f-4f33-8202-f0beac5427a6",
+                "occi.storagelink.deviceid": "ide:0:1"
+            }
+        }
+    ]
+
+}

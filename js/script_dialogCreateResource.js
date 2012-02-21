@@ -28,13 +28,13 @@ function createDialogCreateResource() {
 				'style' : 'margin-top: 5px;'
 			}).appendTo(divKind);
 			
-			//Platzhalter für Attributes
+			//Platzhalter f√ºr Attributes
 			$('<div/>', {
 				'id' : 'div_createDialog_kind_attr',
 			})
 			.appendTo($('#dialog_create_resource'));
 			
-			//Platzhalter für AddCategories-Buttons
+			//Platzhalter f√ºr AddCategories-Buttons
 			$('<div/>', {
 				'id' : 'div_add_buttons',
 				'style' : 'text-align: center',
@@ -43,7 +43,7 @@ function createDialogCreateResource() {
 			
 			var selectBox = $('<div/>', {
 				'class': 'selectBox',
-			})
+			});
 			
 			var select = $('<select/>', {
 				'id' : 'selectKind',
@@ -62,12 +62,11 @@ function createDialogCreateResource() {
 						})
 						.appendTo($('#selectKind'));
 			});
-			var label = $('<label/>', {
+			$('<label/>', {
 				'html' : 'Kind',
 				'for' : 'selectKind',
 				'class' : 'attributes',
 			}).insertBefore(select);
-			
 			select.combobox({
 		        selected: function(event, ui) {
 		        	printSelectKindAttributes($('#selectKind').val());
@@ -81,7 +80,7 @@ function createDialogCreateResource() {
 				printButtonAddLink();
 				printButtonSave();
 				$("#dialog_create_resource").dialog('option', 'position', 'center');
-			})
+			});
 		}
 	});
 }
@@ -89,8 +88,6 @@ function createDialogCreateResource() {
 function printSelectKindAttributes(kind) {
 	//Attribute-Div leeren
 	$('#divKindAttr').text("");
-	
-	
 	
 	var Attr = getAttributesOfKind(kind);
 	$.each(Attr, function(key, value){
@@ -133,7 +130,7 @@ function printSelectMixin() {
 	});
 	select.appendTo(selectBox);
 	
-	var label = $('<label/>', {
+	$('<label/>', {
 		'html' : 'Mixin',
 		'for' : 'selectKind',
 		'class' : 'attributes'
@@ -160,7 +157,7 @@ function printSelectMixin() {
         }
     });
 	
-	var deleteSelect = $('<button/>', {
+	$('<button/>', {
 		'class' : 'button_delete deleteSelectMixin',
 		'html' : '&nbsp;',
 	})
@@ -172,8 +169,8 @@ function printSelectMixin() {
     })
     .width("26")
     .bind('click', function() {
-    	deleteSelect.parent().next().remove();
-    	deleteSelect.parent().parent().remove();
+    	$(this).parent().next().remove();
+    	$(this).parent().parent().remove();
     })
 	.appendTo(selectBox);
 }
@@ -213,7 +210,7 @@ function printSelectLink() {
 		'id' : 'selectLink',
 		'class' : 'selectLink',
 		'name' : 'selectLink'
-	})
+	});
 	
 	$.each(Links, function(key, value){
 		$('<option/>', {
@@ -233,7 +230,7 @@ function printSelectLink() {
 	selectBox.appendTo(divLink);
 	select.appendTo(selectBox);
 	
-	var label = $('<label/>', {
+	$('<label/>', {
 		'html' : 'Link',
 		'for' : 'selectLink',
 		'class' : 'attributes'
@@ -249,18 +246,15 @@ function printSelectLink() {
 	.ready(function() {
 		printSelectLinkAttributes($('#selectLink').val(), divLinkAttr);
 		printSelectLinkTarget(divLink);
-//		$("#dialog_create_resource").dialog('option', 'position', 'center');
 	});
 		
 	select.combobox({
         selected: function(event, ui) {
         	printSelectLinkAttributes($('#selectLink').val(), divLinkAttr);
-//        	printSelectLinkTarget(divLink);
-//    		$("#dialog_create_resource").dialog('option', 'position', 'center');
         }
     });
 	
-	var deleteSelect = $('<button/>', {
+	$('<button/>', {
 		'class' : 'button_delete deleteSelectLink',
 		'html' : '&nbsp;',
 	})
@@ -272,8 +266,8 @@ function printSelectLink() {
     })
     .width("26")
     .bind('click', function() {
-    	deleteSelect.parent().next().remove();
-    	deleteSelect.parent().parent().remove();
+    	$(this).parent().next().remove();
+    	$(this).parent().parent().remove();
     })
 	.appendTo(selectBox);
 }
@@ -305,7 +299,7 @@ function printSelectLinkTarget(tmp) {
 		'name' : 'selectTarget'
 	});
 	
-	$.each(Resources, function(key, value){
+	$.each(ResourcesOfServer, function(key, value){
 		var resourceId = value["occi.core.id"];
 		var title = getOcciCoreTitlebyOcciCoreId(resourceId);
 		$('<option/>', {
@@ -317,7 +311,7 @@ function printSelectLinkTarget(tmp) {
 	select.appendTo(tmp);
 	select.combobox();
 	
-	var label = $('<label/>', {
+	$('<label/>', {
 		'html' : 'Target',
 		'for' : 'selectTarget',
 		'class' : 'attributes'
@@ -369,6 +363,7 @@ function printButtonSave() {
 	.button()
 	.bind('click', function() {
 		$('#dialog_create_resource').remove();
+		$.jGrowl($.i18n._("Resource")+" "+$.i18n._("saved")+"!");
 	})
 	.appendTo($('#div_add_buttons'));
 }

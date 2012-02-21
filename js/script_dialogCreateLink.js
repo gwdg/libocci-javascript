@@ -27,7 +27,7 @@ function createDialogCreateLink() {
 				'name' : 'selectLinkSource'
 			});
 			
-			$.each(Resources, function(key, value){
+			$.each(ResourcesOfServer, function(key, value){
 				var resourceId = value["occi.core.id"];
 				var title = getOcciCoreTitlebyOcciCoreId(resourceId);
 				$('<option/>', {
@@ -41,7 +41,7 @@ function createDialogCreateLink() {
 			selectBox1.appendTo('#dialog_create_link');
 			
 			
-			var label = $('<label/>', {
+			$('<label/>', {
 				'html' : 'Source',
 				'for' : 'selectLinkSource',
 				'class' : 'attributes'
@@ -59,7 +59,7 @@ function createDialogCreateLink() {
 					'id' : 'selectLink',
 					'class' : 'selectLink',
 					'name' : 'selectLink'
-				})
+				});
 				
 				$.each(Links, function(key, value){
 					$('<option/>', {
@@ -79,7 +79,7 @@ function createDialogCreateLink() {
 			
 			selectBox2.appendTo('#dialog_create_link');
 			
-			var label = $('<label/>', {
+			$('<label/>', {
 				'html' : 'Link',
 				'for' : 'selectLink',
 				'class' : 'attributes'
@@ -96,7 +96,7 @@ function createDialogCreateLink() {
 			selectL
 			.ready(function(key, value){
 				printLinkAttr(selectL.val(), selectLinkAttr);
-			})
+			});
 			
 			var selectBox3 = $('<div/>', {
 				'class' : 'selectBox3',
@@ -108,7 +108,7 @@ function createDialogCreateLink() {
 				'name' : 'selectLinkTarget'
 			});
 			
-			$.each(Resources, function(key, value){
+			$.each(ResourcesOfServer, function(key, value){
 				var resourceId = value["occi.core.id"];
 				var title = getOcciCoreTitlebyOcciCoreId(resourceId);
 				$('<option/>', {
@@ -121,7 +121,7 @@ function createDialogCreateLink() {
 			selectT.combobox();
 			selectBox3.appendTo('#dialog_create_link');
 			
-			var label = $('<label/>', {
+			$('<label/>', {
 				'html' : 'Target',
 				'for' : 'selectLinkTarget',
 				'class' : 'attributes'
@@ -139,6 +139,7 @@ function createDialogCreateLink() {
 			.button()
 			.bind('click', function() {
 				$('#dialog_create_link').remove();
+				$.jGrowl($.i18n._("Link")+" "+$.i18n._("saved")+"!");
 	})
 			.appendTo(div);
 		}
