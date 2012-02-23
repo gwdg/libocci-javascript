@@ -32,18 +32,9 @@ div#div_select_lang {
 	text-align: center; 
 }
 
-#section-compute {
+.section {
   width: 300px;
   margin-right:10px;
-}
-
-#section-storage {
-  width: 300px;
-  margin-right:10px;
-}
-
-#section-network {
-  width: 300px;
 }
 
 #footer {

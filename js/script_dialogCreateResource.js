@@ -53,8 +53,8 @@ function createDialogCreateResource() {
 			.appendTo(selectBox);
 			selectBox.prependTo(divKind);
 			divKind.prependTo($('#dialog_create_resource'));
-			$.each(Kinds, function(key, value){
-				if(value.related != null)
+			$.each(KindsOfServer, function(key, value){
+				if(value.related)
 					if(getWordAfterChar(value.related, '#') == "resource")
 						$('<option/>', {
 							'html' : value.term,

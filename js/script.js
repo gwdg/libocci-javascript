@@ -16,15 +16,18 @@ var data_server_info = getData(url_server_info);
 /**
  * After that the instantiated resources, kinds and links are set 
  */
+
+var Attr = getAllAttributes();
+
+var KindsOfServer = getKindsOfServer();
 var ResourcesOfServer = getResourcesOfServer();
-var kindsOfServer = getKindsOfServer();
+
 
 /**
  * Then all the available Parameters are set
  */
-var Attr = getAllAttributes();
+
 var Mixins = {};
-var Kinds = {};
 var Links = {};
 
 
@@ -50,74 +53,84 @@ function setTexts() {
 function getResourcesOfServer() {
 	console.log("getResourcesOfServer called");
 	var Out = {};
-	var AllAttr = getAllAttributes();
 	$.each(data_server.collection, function(key, value) {
 		var res = value;
-		var entitySubType = getWordAfterChar(value.kind.related, '#');
-		if(entitySubType == "resource") {
-    		var CurrResource = {};
-    		CurrResource.Type = value.kind.term;
-    		var AttributesOfKind = jQuery.extend(AllAttr["entity"], AllAttr["resource"], AllAttr[CurrResource.Type]);
-    		$.each(AttributesOfKind, function(key, value){
-    			CurrResource[key] = res.attributes[key];
-    		});
-    		Out[CurrResource["occi.core.id"]] = CurrResource;
+		var kind = KindsOfServer[value.kind.term];
+		var related = kind.related;
+		if(related) {
+			var entitySubType = getWordAfterChar(related, '#');
+			if(entitySubType == "resource") {
+	    		var CurrResource = {};
+	    		CurrResource.Type = value.kind.term;
+	    		var AttributesOfKind = jQuery.extend(Attr["entity"], Attr["resource"], Attr[CurrResource.Type]);
+	    		console.debug("Attributes of Kind: "+CurrResource.Type);
+	    		console.debug(AttributesOfKind);
+	    		$.each(AttributesOfKind, function(key, value){
+	    			CurrResource[key] = res.attributes[key];
+	    		});
+	    		$.each(res.links, function(k,v) {
+	    			CurrResource["Link("+(k+1)+")"] = v.target;
+	    		});
+	    		Out[CurrResource["occi.core.id"]] = CurrResource;
+			}
 		}
 	});
-	console.info("getResourcesOfServer gibt zurueck:");
+	console.debug("getResourcesOfServer gibt zurueck:");
 	console.debug(Out);
-	Out = attachLinksToResourcesOfServer(Out);
 	return Out;
 }
 
 function getKindsOfServer() {
-	var out = new Array();
-	kindsOfServer = new Array();
-	$.each(data_server.collection, function(key, value) {
-		var entitySubType = value.kind.related;
-		entitySubType = getWordAfterChar(entitySubType, '#');
-		if(entitySubType == "resource") {
-			if(jQuery.inArray(value.kind.term, out)==-1) {
-				out.push(value.kind.term);
-			}
-		}
+	console.info("getKindsOfServer called!");
+	var Out = {};
+	$.each(data_server_info.kinds, function(key, value) {
+		var Obj = {};
+		$.each(value, function(key2, value2) {
+			Obj[key2] = value2;
+		});
+		Out[value.term] = Obj;
 	});
-	return out;
-}
-
-function getLinksOfServer() {
-	console.info("getLinksOfServer called");
-	var Out = new Array();
-	$.each(data_server.collection, function(key, value) {
-		var entitySubType = getWordAfterChar(value.kind.related, '#');
-		if(entitySubType == "link") {
-			var Link = {};
-			Link.Type = value.kind.term;
-			Link.Source = getWordAfterChar(value.attributes["occi.core.source"], '/');
-			Link.Target = getWordAfterChar(value.attributes["occi.core.target"], '/');
-			Out.push(Link);
-		}
-	});
-	console.debug("getLinksOfServer returned: ");
+	console.debug("getKindsOfServer gibt zurueck:");
 	console.debug(Out);
 	return Out;
 }
 
-function attachLinksToResourcesOfServer(Resources) {
-	console.log("attachLinksToResourcesOfServer called");
-	var LinksOfServer = getLinksOfServer();
-	$.each(Resources, function(key, Resource){
-		$.each(LinksOfServer, function(key_l, Link){
-			if(Resource["occi.core.id"] == Link.Source) {
-				Resources[key].LinkedTo = Link.Target;
-			}
-			if(Resource["occi.core.id"] == Link.Target) {
-				Resources[key].LinkedTo = Link.Source;
-			}
-		});
-	});
-	return Resources;
-}
+
+//function getLinksOfServer() {
+//	console.info("getLinksOfServer called");
+//	var Out = new Array();
+//	$.each(data_server.collection, function(key, value) {
+//		var entitySubType = getWordAfterChar(value.kind.related, '#');
+//		if(entitySubType == "link") {
+//			var Link = {};
+//			Link.Type = value.kind.term;
+//			Link.Source = getWordAfterChar(value.attributes["occi.core.source"], '/');
+//			Link.Target = getWordAfterChar(value.attributes["occi.core.target"], '/');
+//			Out.push(Link);
+//		}
+//	});
+//	console.debug("getLinksOfServer returned: ");
+//	console.debug(Out);
+//	return Out;
+//}
+//
+//function attachLinksToResourcesOfServer(Resources) {
+//	console.log("attachLinksToResourcesOfServer called");
+//	var LinksOfServer = getLinksOfServer();
+//	$.each(Resources, function(key, Resource){
+//		$.each(LinksOfServer, function(key_l, Link){
+//			if(Resource["occi.core.id"] == Link.Source) {
+//				Resources[key].LinkedTo = Link.Target;
+//			}
+//			if(Resource["occi.core.id"] == Link.Target) {
+//				Resources[key].LinkedTo = Link.Source;
+//			}
+//		});
+//	});
+//	console.debug("attachLinksToResourcesOfServer gibt zurueck:");
+//	console.debug(Resources);
+//	return Resources;
+//}
 
 
 /**
@@ -127,20 +140,24 @@ function attachLinksToResourcesOfServer(Resources) {
 function getAllAttributes() {
 	var Out = {};
 	console.info("getAllAttributes aufgerufen");
+	
 	$.each(data_server_info.kinds, function(key, value){
+		var hasAttributes  = false;
 		var Obj = {};
-		$.each(value.attributes, function(key, value){
-			Obj[key] = value;
-		});
-		Out[value.term] = Obj;
+		if(value.attributes != null)
+			$.each(value.attributes, function(key, value){
+				hasAttributes = true;
+				Obj[key] = value;
+			});
+		if(hasAttributes)
+			Out[value.term] = Obj;
 	});  	
-	console.info("getAllAttributes gibt zurück: ");
+	console.debug("getAllAttributes gibt zurück: ");
 	console.debug(Out);
 	return Out;
 }
 
 function getAttributesOfKind(kind) {
-	Attr = getAllAttributes();
 	return Attr[kind];
 }
 
@@ -151,6 +168,7 @@ function getAttributesOfMixin(mixin) {
 }
 
 function getAllMixins() {
+	console.info("getAllMixins aufgerufen");
 	var Out = {};
 	$.each(data_server_info.mixins, function(key, value){
 		var Obj = {};
@@ -159,11 +177,13 @@ function getAllMixins() {
 		});
 		Out[value.term] = Obj;
 	});  	
+	console.debug("getAllMixins gibt zurück: ");
+	console.debug(Out);
 	return Out;
 }
 
 function getAllKinds() {
-	console.log("Retrieving data for kinds from "+url_server_info);
+	console.info("getAllKinds aufgerufen");
 	var Out = {};
 	$.each(data_server_info.kinds, function(key, value){
 		var Obj = {};
@@ -172,11 +192,13 @@ function getAllKinds() {
 		});
 		Out[value.term] = Obj;
 	});  	
+	console.debug("getAllKinds gibt zurück: ");
+	console.debug(Out);
 	return Out;
-	console.debug("Kinds: "+Kinds);
 }
 
 function getAllLinks() {
+	console.info("getAllLinks aufgerufen");
 	var AllKinds = getAllKinds();
 	var Out = {};
 	$.each(AllKinds, function(key, value){
@@ -184,6 +206,8 @@ function getAllLinks() {
 			if(getWordAfterChar(value.related, '#') == "link")
 				Out[value.term] = value;
 	});
+	console.debug("getAllLinks gibt zurück: ");
+	console.debug(Out);
 	return Out;
 }
 
@@ -206,7 +230,7 @@ function getActionsOfType(type) {
  */
 
 function printDashboard() {
-	Kinds = getAllKinds();
+
 	Links = getAllLinks();
 	Mixins = getAllMixins();
 	
@@ -220,26 +244,33 @@ function printDashboard() {
 }
 
 function printSections() {
-	$.each(kindsOfServer, function(key, value) {
-		$('<h3/>', {
-			'id': "section-"+value+"-head",
-			'class': 'ui-widget-header ui-corner-all',
-			html: value.toUpperCase()
-		}).add(
-			$('<div/>', {
-				id: "selectable-"+value,
-			})
-		).appendTo(
-		$('<div/>', {
-			'id': "section-"+value,
-			'class': 'marginal ui-widget-content ui-corner-all',
-			'text-align' : 'center'
-		}).appendTo(
-		$('<div/>', {
-			'id': "frame-"+value,
-			'class': 'marginal',
-			'style': 'text-align:center',
-		}).appendTo($('#page'))));
+	$.each(KindsOfServer, function(key, value) {
+		var term = value.term;
+		var related = value.related;
+		if(related) {
+			var entitySubType = getWordAfterChar(related, '#');
+			if (entitySubType == "resource") {
+				$('<h3/>', {
+					'id': "section-"+term+"-head",
+					'class': 'ui-widget-header ui-corner-all',
+					'html': term.toUpperCase()
+				}).add(
+					$('<div/>', {
+						id: "selectable-"+term,
+					})
+				).appendTo(
+				$('<div/>', {
+					'id': "section-"+term,
+					'class': 'section marginal ui-widget-content ui-corner-all',
+					'text-align' : 'center'
+				}).appendTo(
+				$('<div/>', {
+					'id': "frame-"+term,
+					'class': 'marginal',
+					'style': 'text-align:center',
+				}).appendTo($('#page'))));	
+			}
+		}
 	});
 }
 

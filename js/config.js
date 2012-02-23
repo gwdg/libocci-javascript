@@ -3,8 +3,8 @@
 /**
  * Begin Config
  */
-var url_server = "nyren/nyren.json";
-var url_server_info = "nyren/all.json";
+var url_server = "http://192.168.56.101:3000/";
+var url_server_info = url_server+"-/";
 
 /**
  * available languages: de, en
