@@ -11,8 +11,8 @@ You need at least
 ## Install
 There are two ways to use this client:
 
-* You can checkout the source: " git clone https://github.com/gwdg/libocci-javascript.git" and move the contents to the public-Folder.
-* Or you can download the zipfile from the [downloads](https://github.com/gwdg/libocci-javascript/archives/master) page and install it. 
+* You can checkout the source: " git clone https://github.com/gwdg/libocci-javascript.git".
+* Or you can download the zipfile from the [downloads](https://github.com/gwdg/libocci-javascript/zipball/master) page and unzip the file. 
 
 ## Usage
 
