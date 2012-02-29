@@ -1,22 +1,20 @@
-OCCI-Client in Javascript
-=====================
+# OCCI-Client in Javascript
 
-Requirements
-------------
+
+## Requirements
+
 
 You need at least
 
 * an OCCI-Server with JSON-Rendering
 
-Installation
-------------
+## Install
+There are two ways to use this client:
 
-Clone GIT repository
+* You can checkout the source: " git clone https://github.com/gwdg/libocci-javascript.git" and move the contents to the public-Folder.
+* Or you can download the zipfile from the [downloads](https://github.com/gwdg/libocci-javascript/archives/master) page and install it. 
 
-    git clone https://github.com/gwdg/libocci-javascript.git
-
-Usage
------
+## Usage
 
 If your server supports Cross-Browser-Scripting, you can start the OCCI-Client from anywhere.
 Otherwise you have to move the content into:
