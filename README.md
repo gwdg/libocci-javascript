@@ -24,3 +24,9 @@ If your server supports Cross-Browser-Scripting, you can start the OCCI-Client f
 Otherwise you have to move the content into:
     
     /public/
+
+## Functionality
+
+The general functionality depends on the JSON-Rendering.
+So far you can get all the instances of your OCCI-Server and all the details about a resource.
+Support POST-commands is in development.

@@ -8,15 +8,16 @@ var Links;
 
 
 loadAndSetLanguages(function() {
-	$(document).ready(function(){
-		url_server = getHost();
-		if(url_server == "")
-			promptHostUrl();
-		else{
-			prepareData();
-			init();
-		}
-	});
+$(document).ready(function(){
+	url_server = getHost();
+	if(url_server == "")
+		promptHostUrl();
+	else{
+		prepareData(function(){
+		init();
+		});
+	}
+});
 });
 
 
@@ -60,15 +61,16 @@ function urlServerInserted(url) {
 	console.debug("Following URL was inserted:");
 	console.debug(url_server);
 	$('#dialogSetServer').dialog('close');
-	prepareData();
+	prepareData(function(){
 	init();
+	});
 }
 
-function prepareData() {
+function prepareData(callback) {
 	/**
 	 * First the two main files are "cached"
 	 * 
-	 * It should be auto-refreshed
+	 * It should be auto-refreshed or something like that
 	 */
 
 	data_server = getData(url_server);
@@ -91,7 +93,7 @@ function prepareData() {
 	Mixins = {};
 	Links = {};
 
-
+	callback();
 }
 
 
@@ -152,43 +154,6 @@ function getKindsOfServer() {
 	console.debug(Out);
 	return Out;
 }
-
-
-//function getLinksOfServer() {
-//	console.info("getLinksOfServer called");
-//	var Out = new Array();
-//	$.each(data_server.collection, function(key, value) {
-//		var entitySubType = getWordAfterChar(value.kind.related, '#');
-//		if(entitySubType == "link") {
-//			var Link = {};
-//			Link.Type = value.kind.term;
-//			Link.Source = getWordAfterChar(value.attributes["occi.core.source"], '/');
-//			Link.Target = getWordAfterChar(value.attributes["occi.core.target"], '/');
-//			Out.push(Link);
-//		}
-//	});
-//	console.debug("getLinksOfServer returned: ");
-//	console.debug(Out);
-//	return Out;
-//}
-//
-//function attachLinksToResourcesOfServer(Resources) {
-//	console.log("attachLinksToResourcesOfServer called");
-//	var LinksOfServer = getLinksOfServer();
-//	$.each(Resources, function(key, Resource){
-//		$.each(LinksOfServer, function(key_l, Link){
-//			if(Resource["occi.core.id"] == Link.Source) {
-//				Resources[key].LinkedTo = Link.Target;
-//			}
-//			if(Resource["occi.core.id"] == Link.Target) {
-//				Resources[key].LinkedTo = Link.Source;
-//			}
-//		});
-//	});
-//	console.debug("attachLinksToResourcesOfServer gibt zurueck:");
-//	console.debug(Resources);
-//	return Resources;
-//}
 
 
 /**
