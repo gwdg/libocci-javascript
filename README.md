@@ -12,6 +12,7 @@ You need at least
 There are two ways to use this client:
 
 * You can checkout the source: 
+	
 	git clone https://github.com/gwdg/libocci-javascript.git
 		
 		
