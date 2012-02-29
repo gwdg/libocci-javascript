@@ -3,6 +3,8 @@
 
 body {
 	font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif";
+	width: 100%;
+	overflow: auto;
 }
 
 select { 
@@ -15,6 +17,7 @@ select {
 
 div#head {
 	margin: 5px;
+	padding: 10px 10px 15px 10px;
 }
 
 div#div_select_lang {
@@ -67,23 +70,21 @@ div#div_select_lang {
 	text-decoration: none; 
 }
 
-.button_delete {
+.button_customizeResource {
 	width: 26px;
 	height: 26px;
 }
 
-.button_create {
-	padding: 0.4em 1em 0.4em 1em;
-    position: relative;
-    text-decoration: none;
-}
-
 .action {
 	margin: 5px;
-	height: 28px;
-	padding: 0px;
-	width: 140px;
+	padding: 7px;
+	width: 100%;
 	text-align: center;
+}
+
+div.detailBox {
+	font-size: .7em;
+	overflow: auto
 }
 
 div.attributes {
@@ -91,6 +92,7 @@ div.attributes {
 	text-align: left; 
 	width: 120px;
 	margin:5px;
+	height: 26px;
 }
 
 label.attributes {
@@ -109,9 +111,22 @@ div.container {
 	padding: 4px 0 0 0;
 }
 
+div#div_select_lang {
+	padding-bottom: 10px;
+}
+
+.button_delete {
+	height: 26px;
+}
+
 .comboBox {
 	width: 122px;  
 	border-right:none'
+}
+
+.divAttr{
+	overflow:hidden; 
+	width:100%;
 }
 
 /* jGrowl

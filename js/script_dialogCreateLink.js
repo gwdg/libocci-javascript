@@ -87,7 +87,7 @@ function createDialogCreateLink() {
 			
 			
 			var selectLinkAttr = $('<div/>', {
-				'class' : 'selectLinkAttr',
+				'class' : 'selectLinkAttr, divAttr',
 				'name' : 'selectLinkAttr'
 			});
 			

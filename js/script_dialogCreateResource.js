@@ -25,6 +25,7 @@ function createDialogCreateResource() {
 			
 			$('<div/>', {
 				'id' : 'divKindAttr',
+				'class' : 'divAttr',
 				'style' : 'margin-top: 5px;'
 			}).appendTo(divKind);
 			
@@ -139,7 +140,7 @@ function printSelectMixin() {
 	divMixin.insertAfter($('#div_createDialog_kind_attr'));
 	
 	var divMixinAttr = $('<div/>', {
-		'class': 'divMixinAttr',
+		'class': 'divMixinAttr, divAttr',
 	}).appendTo(divMixin);
 	
 
@@ -238,7 +239,7 @@ function printSelectLink() {
 	
 	var divLinkAttr = $('<div/>', {
 		'id' : 'divLinkAttr',
-		'class': 'divLinkAttr',
+		'class': 'divLinkAttr, divAttr',
 	});
 	divLinkAttr.appendTo(divLink);
 	

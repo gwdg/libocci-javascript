@@ -1,41 +1,105 @@
-$.i18n.setDictionary(de);
+var data_server;
+var data_server_info;
+var Attr;
+var KindsOfServer;
+var ResourcesOfServer;
+var Mixin;
+var Links;
 
-$(document).ready(function(){
-	init();
+
+loadAndSetLanguages(function() {
+	$(document).ready(function(){
+		url_server = getHost();
+		if(url_server == "")
+			promptHostUrl();
+		else{
+			prepareData();
+			init();
+		}
+	});
 });
 
-/**
- * First the two main files are "cached"
- * 
- * It should be auto-refreshed
- */
 
-var data_server = getData(url_server);
-var data_server_info = getData(url_server_info);
+function promptHostUrl(){
+	console.log("Showing Dialog -INSERT HOST-");
+	$('<input />', {
+		'type' : 'text',
+		'style' : 'margin: 5px; width: 100%',
+		'id' : 'inputUrlServer',
+		'value' : 'http://192.168.56.101:3000/'
+	})
+	.after(
+			$('<input />', {
+				'type' : 'button',
+				'id' : 'buttonSaveUrlServer',
+				'value' : $.i18n._("continue"),
+			}).bind('click', function(){
+				urlServerInserted($('#inputUrlServer').val());
+			})
+			.button()
+	)
+	.appendTo(
+			$('<div/>', {
+				'html' : $.i18n._("missing_host_text")+":",
+				'id': 'dialogSetServer',
+				'style' :  'float: left; text-align: left',
+			})
+			.dialog({
+				autoOpen: true,
+				modal: true,
+				title: $.i18n._("missing_specification"),
+				close: function(ev, ui) {
+				    $(this).remove();
+				 }
+			})
+	);
+}
 
-/**
- * After that the instantiated resources, kinds and links are set 
- */
+function urlServerInserted(url) {
+	url_server = url;
+	console.debug("Following URL was inserted:");
+	console.debug(url_server);
+	$('#dialogSetServer').dialog('close');
+	prepareData();
+	init();
+}
 
-var Attr = getAllAttributes();
+function prepareData() {
+	/**
+	 * First the two main files are "cached"
+	 * 
+	 * It should be auto-refreshed
+	 */
 
-var KindsOfServer = getKindsOfServer();
-var ResourcesOfServer = getResourcesOfServer();
+	data_server = getData(url_server);
+	data_server_info = getData(url_server_info);
+
+	/**
+	 * After that the instantiated resources, kinds and links are set 
+	 */
+
+	Attr = getAllAttributes();
+
+	KindsOfServer = getKindsOfServer();
+	ResourcesOfServer = getResourcesOfServer();
 
 
-/**
- * Then all the available Parameters are set
- */
+	/**
+	 * Then all the available Parameters are set
+	 */
 
-var Mixins = {};
-var Links = {};
+	Mixins = {};
+	Links = {};
 
+
+}
 
 
 
 function init() {
-	setTexts();	
+	loadSelectLanguages();
 	printDashboard();
+	$.jGrowl($.i18n._("welcome_text"));
 }
 
 
@@ -43,12 +107,6 @@ function init() {
  * get initiated Stuff
  * @returns {___anonymous3158_3159}
  */
-
-function setTexts() {
-	$('h3#section-compute-head').text($.i18n._("compute").toUpperCase());
-	$('h3#section-storage-head').text($.i18n._("storage").toUpperCase());
-	$('h3#section-network-head').text($.i18n._("network").toUpperCase());
-}
 
 function getResourcesOfServer() {
 	console.log("getResourcesOfServer called");
@@ -212,6 +270,7 @@ function getAllLinks() {
 }
 
 function getActionsOfType(type) {
+	console.info("getActionsOfType called!");
 	var actions = new Array();
 	$.each(data_server_info.kinds, function(key, value) {
 		if(value.term == type) {
@@ -220,6 +279,8 @@ function getActionsOfType(type) {
 			});
 		}	
 	});
+	console.debug("getActionsOfType returned: ");
+	console.debug(actions);
 	return actions;
 }
 
@@ -294,13 +355,25 @@ function printResources() {
 		
 		var details = "";
 			
-		$('<pre/>', {
+		$('<div/>', {
 			'id': Collection.Type+key,
-			'class': 'ui-state-highlight ui-widget-content ui-corner-all selectable',
+			'class': 'ui-widget-content ui-corner-all selectable detailBox',
 			'style': 'display:none; text-align: left',
 			html: details
 		}).bind('click', function() {
 		  printDialogActions(Collection.Type, resourceId);
+		})
+		.droppable({
+			hoverClass: "ui-state-default",
+			scroll: true,
+			distance: 0,
+			over: function(event, ui) {
+			},
+			drop: function(event, ui) {
+				var draggableId = ui.draggable[0].attributes.id.value;
+				var droppableId = $(this).attr('id');
+				$.jGrowl(draggableId + " was dropped on " + droppableId);
+			}
 		})
 		.appendTo('#selectable-'+Collection.Type);
 		printButtonsCustomizeResource(resourceId, key);
@@ -308,7 +381,6 @@ function printResources() {
 		.bind('click', function(){
 			$('#'+Collection.Type+key+"_buttons").toggle();
 		});
-		
 	});
 }
 
@@ -327,11 +399,14 @@ function printDialogActions(type, resourceId) {
 		 }
 	}).dialog('open');
 	$.each(actions, function(key, value){
-		actionName = getWordAfterChar(value, '#');
+		console.debug(value);
+		actionType = getWordAfterChar(value.type, '#');
+		actionName = value.title;
 		$('<button/>', {
-			'class' : 'button action ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all',
+			'class' : 'button action',
 			'html' : actionName,
 		})
+		.button()
 		.bind('click', function(){
 			$(this).parent().dialog("close"); 
       	  	$.jGrowl($.i18n._("action_executed", [$(this).html()])+"!");
@@ -363,10 +438,37 @@ function printButtonsCustomizeResource(ResourceId, key) {
 		'style' : 'text-align:center; display:none'
 	}).insertAfter($('#'+Resource.Type+key));
 	
+	$('<div/>', {
+		'id' : Resource.Type+key,
+		'class' : 'button_customizeResource',
+	})
+	.button({
+        icons: {
+            primary: "ui-icon-link"
+        },
+        text: false,
+    })
+    .width("26")
+    .bind("click", function(){
+    	$.jGrowl("Please drag me!");
+    })
+    .appendTo(detailBox)
+    .draggable({
+    	opacity: 0.7, 
+    	helper: "clone",
+    	start: function(){
+    		$(this).unbind('click');
+    	},
+    	stop: function(){
+    		$(this).bind('click', function(){
+    	    	$.jGrowl("Please drag me!");
+    		});
+    	},
+    	revert: true,
+    });
 	
-	$('<button/>', {
-		'class' : 'button_delete deleteResource',
-		'html' : '&nbsp;',
+	$('<div/>', {
+		'class' : 'button_customizeResource',
 	})
 	.button({
         icons: {
@@ -402,9 +504,8 @@ function printButtonsCustomizeResource(ResourceId, key) {
     })
     .appendTo(detailBox);
     
-	$('<button/>', {
-		'class' : 'button_delete deleteResource',
-		'html' : '&nbsp;',
+	$('<div/>', {
+		'class' : 'button_customizeResource',
 	})
 	.button({
         icons: {

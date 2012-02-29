@@ -15,10 +15,6 @@
 	
 	<script type="text/javascript" src="js/vendor/jGrowl/jquery.jgrowl.js"></script>
 	
-	<script type="text/javascript" src="js/lang/languages.js"></script>
-	<script type="text/javascript" src="js/lang/lang_de.js"></script>
-	<script type="text/javascript" src="js/lang/lang_en.js"></script>
-	
 	<script type="text/javascript" src="js/helper.js"></script>
 	<script type="text/javascript" src="js/config.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
@@ -28,11 +24,11 @@
 <body>
 <div id="head" class="ui-widget-header  ui-corner-all">
 	OCCI - Dashboard
-	<!-- 
 	<div id="div_select_lang">
-		<select id="select_lang" DISABLED onchange="selectLanguage($('#select_lang').val())"></select>
+		<select id="select_lang" style="display:none">
+			<option value="-1">Please select a language:</option>
+		</select>
 	</div>
-	 -->
 </div>
 <div id="page"></div>
 <br style="clear: both" />
