@@ -37,11 +37,10 @@ function createDialogCustomizeView() {
 						.bind('change', function(){
 							$('#frame-'+$(this).val()).toggle();
 							if($('#frame-'+$(this).val()).is(':visible')) {
-								$('#main').width($('#main').width() + 330);
+								$('#container').width($('#container').width() + 330);
 							}else{
-								$('#main').width($('#main').width() - 330);
+								$('#container').width($('#container').width() - 330);
 							}
-							$('.scroll-pane').jScrollPane();
 						})
 						.after(
 						$('<div/>', {

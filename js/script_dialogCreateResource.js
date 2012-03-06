@@ -103,7 +103,7 @@ function printSelectKindAttributes(kind) {
 					'html' : ucwords(getWordAfterChar(key, '.'))
 				})
 		).appendTo($('#divKindAttr'));
-		
+		$('<br/>', {'class':'clear'}).appendTo($('#divKindAttr'));
 	});
 }
 
@@ -194,6 +194,7 @@ function printSelectMixinAttributes(mixin, tmp) {
 					})
 			)
 			.appendTo(tmp);
+			$('<br/>', {'class':'clear'}).appendTo(tmp);
 		});
 	}
 }
@@ -289,7 +290,7 @@ function printSelectLinkAttributes(kind, div) {
 					'html' : ucwords(getWordAfterChar(key, '.'))
 				})
 		).appendTo(div);
-		
+		$('<br/>', {'class':'clear'}).appendTo(div);
 	});
 	
 }
@@ -359,7 +360,7 @@ function printButtonSave() {
 	.appendTo($('#div_add_buttons'));
 	$('<button/>', {
 		'html' : 'Save',
-		'style' : 'margin: 5px;'
+		'class' : 'button_submit'
 	})
 	.button()
 	.bind('click', function() {

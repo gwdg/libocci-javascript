@@ -5,7 +5,7 @@
 				select = this.element.hide(),
 				selected = select.children( ":selected" ),
 				value = selected.val() ? selected.text() : "";
-			var input = this.input = $( "<input>", {'disabled':'disabled', 'class': 'ui-menu ui-widget ui-widget-content ui-corner-left ui-state-default comboBox', 'style' : 'border-right:none'} )
+			var input = this.input = $( "<input>", {'readonly':'readonly', 'class': 'ui-menu ui-widget ui-widget-content ui-corner-left ui-state-default comboBox', 'style' : 'border-right:none'} )
 				.insertAfter( select )
 				.val( value )
 				.autocomplete({
@@ -57,7 +57,8 @@
 				.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
 			input.data( "autocomplete" )._renderItem = function( ul, item ) {
-				return $( "<li></li>" )
+				ul.addClass('ui-menu ui-widget ui-widget-content ui-state-default comboBoxMenu');
+				return $( "<li></li>", {'class' : 'ui-menu '})
 					.data( "item.autocomplete", item )
 					.append( "<a>" + item.label + "</a>" )
 					.appendTo( ul );
@@ -65,7 +66,6 @@
 
 			this.button = $( "<button type='button'>&nbsp;</button>" )
 				.attr( "tabIndex", -1 )
-				.attr( "style", "width: 26px; height: 26px; border-left:none" )
 				.attr( "title", "Show All Items" )
 				.insertAfter( input )
 				.button({
@@ -89,7 +89,8 @@
 					// pass empty string as value to search for, displaying all results
 					input.autocomplete( "search", "" );
 					input.focus();
-				});
+				})
+				.addClass('comboBoxButton');
 		},
 
 		destroy: function() {

@@ -1,23 +1,49 @@
 /* Site
    -------------------------------- */
 
+/* =Reset default browser CSS. */
+html, body, div, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, samp, small, span, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+/* =Font Replacement
+-------------------------------------------------------------- */
+
+/* =Standard HTML Tag Definition */
+body, form, input, button, select, textarea, label {
+	font-family: Arial, sans-serif, Helvetica;
+	font-size: 12px;
+	color: #000000;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
 body {
-	font-family: "Trebuchet MS","Helvetica","Arial","Verdana","sans-serif";
-	width: 100%;
-	overflow: auto;
+	background-color: #ffffff;
+}
+
+/* Custom Classes */
+.clear {
+	clear: both;
 }
 
 select { 
 	width: 200px;
 }
-
-
 /* Main
    -------------------------------- */
 
 div#head {
-	margin: 5px;
 	padding: 10px 10px 15px 10px;
+	margin-top: 10px;
 }
 
 div#div_select_lang {
@@ -26,7 +52,7 @@ div#div_select_lang {
 
 #page {
   margin: 0 auto 0 auto;
-  width: 950;
+  width: 941px;
 }
 
 #page h3 { 
@@ -35,26 +61,39 @@ div#div_select_lang {
 	text-align: center; 
 }
 
+#container{
+	overflow: auto;
+	width: 1px;
+}
+
+#main {
+	width: 941px;
+	overflow: auto;
+    padding:4px 0 135px 0;
+}
+
+#jspContainer{
+	overflow: auto;
+}
+
+
 .section {
-  width: 300px;
-  margin-right:10px;
+  margin:0 5px 10px 5px;
+  text-align:center;
+  float: left;
+  width: 310px;
+  display: block;
 }
 
 #footer {
   height: 100px;
 }
 
-.marginal {
-  float: left;
-}
 
 .selectable {
-	font-size: .9em;
 	margin: 3px;
 	padding: 2px;
 	text-align: center;
-	width: auto;
-	height: auto;
 	overflow: auto;
 }
 
@@ -83,8 +122,7 @@ div#div_select_lang {
 }
 
 div.detailBox {
-	font-size: .7em;
-	overflow: auto
+	overflow: auto;
 }
 
 div.attributes {
@@ -121,7 +159,17 @@ div#div_select_lang {
 
 .comboBox {
 	width: 122px;  
-	border-right:none'
+	border-right:none;
+	color: #ffffff;
+}
+
+.comboBoxMenu {
+	font-weight: normal;
+}
+
+.ui-state-default.comboBoxButton{
+	border-left: none;
+	height: 20px;
 }
 
 .divAttr{
@@ -129,6 +177,20 @@ div#div_select_lang {
 	width:100%;
 }
 
+.inputLink {
+}
+
+div#div_createResourceContainer {
+	width: 941px;
+}
+
+
+
 /* jGrowl
    -------------------------------- */
 
+div.jGrowl div.error {
+	background: 			white;
+	color:					red;
+	border-color: 			red;
+}

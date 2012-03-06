@@ -7,6 +7,8 @@ var Mixin;
 var Links;
 
 
+if(jGrowl == "off") $.jGrowl = function( m , o ) {return}
+
 loadAndSetLanguages(function() {
 $(document).ready(function(){
 	url_server = getHost();
@@ -19,6 +21,7 @@ $(document).ready(function(){
 	}
 });
 });
+
 
 
 function promptHostUrl(){
@@ -48,7 +51,7 @@ function promptHostUrl(){
 			.dialog({
 				autoOpen: true,
 				modal: true,
-				title: $.i18n._("missing_specification"),
+				title: $.i18n._("define_host"),
 				close: function(ev, ui) {
 				    $(this).remove();
 				 }
@@ -72,9 +75,9 @@ function prepareData(callback) {
 	 * 
 	 * It should be auto-refreshed or something like that
 	 */
-
-	data_server = getData(url_server);
-	data_server_info = getData(url_server_info);
+	
+	data_server = getData(url_server, $.i18n._("server_data"));
+	data_server_info = getData(url_server+"-/", $.i18n._("discovery_interface"));
 
 	/**
 	 * After that the instantiated resources, kinds and links are set 
@@ -113,6 +116,7 @@ function init() {
 function getResourcesOfServer() {
 	console.log("getResourcesOfServer called");
 	var Out = {};
+	if(data_server.collection)
 	$.each(data_server.collection, function(key, value) {
 		var res = value;
 		var kind = KindsOfServer[value.kind.term];
@@ -229,7 +233,7 @@ function getAllLinks() {
 			if(getWordAfterChar(value.related, '#') == "link")
 				Out[value.term] = value;
 	});
-	console.debug("getAllLinks gibt zurück: ");
+	console.debug("getAllLinks gibt zur�ck: ");
 	console.debug(Out);
 	return Out;
 }
@@ -257,19 +261,30 @@ function getActionsOfType(type) {
 
 function printDashboard() {
 
+	
 	Links = getAllLinks();
 	Mixins = getAllMixins();
 	
-	printButtonCreateResourceAndLink();
 	
+	printButtonCreateResourceAndLink();
+
 	printSections();
 	printResources();
 	
 	createDialogCreateResource();
 	createDialogCreateLink();
+	createDialogCustomizeView();
 }
 
 function printSections() {
+	
+	$('<div/>', {
+		'id': 'main',
+		'class': 'ui-widget-content ui-corner-tl ui-corner-tr',
+	}).appendTo($('#page'));
+	$('<div/>', {
+		'id': 'container',
+	}).appendTo($('#main'));
 	$.each(KindsOfServer, function(key, value) {
 		var term = value.term;
 		var related = value.related;
@@ -287,18 +302,24 @@ function printSections() {
 				).appendTo(
 				$('<div/>', {
 					'id': "section-"+term,
-					'class': 'section marginal ui-widget-content ui-corner-all',
+					'class': 'ui-widget-content ui-corner-all',
 					'text-align' : 'center'
 				}).appendTo(
 				$('<div/>', {
 					'id': "frame-"+term,
-					'class': 'marginal',
 					'style': 'text-align:center',
-				}).appendTo($('#page'))));	
+					'class' : 'section',
+				}).appendTo($('#container'))));	
+				$('#container').width($('#container').width() + 330);
 			}
 		}
+		
 	});
+	$('<div/>', {
+		'style': 'clear:both'
+	}).appendTo($('#main'));
 }
+
 
 function printResources() {
 	$.each(ResourcesOfServer, function(key, value) {
@@ -308,20 +329,21 @@ function printResources() {
 		
 		// print Selectables
 		$('<div/>', {
-			'id': Collection.Type+key+'head',
+			'id': Collection.Type+"_"+key+"_"+'head',
 			'class': 'ui-widget-content ui-corner-all selectable',
-			html: getOcciCoreTitlebyOcciCoreId(resourceId)
+			html: getOcciCoreTitlebyOcciCoreId(resourceId),
 		})
 		.bind('click', function() {
 			printDivDetails(resourceId, key);
-			$('#'+Collection.Type+key).toggle();
+			$('#'+Collection.Type+"_"+key).toggle();
+			$('#'+Collection.Type+"_"+key+"_buttons").toggle();
 		})
 		.appendTo('#selectable-'+Collection.Type);
 		
 		var details = "";
 			
 		$('<div/>', {
-			'id': Collection.Type+key,
+			'id': Collection.Type+"_"+key,
 			'class': 'ui-widget-content ui-corner-all selectable detailBox',
 			'style': 'display:none; text-align: left',
 			html: details
@@ -335,9 +357,16 @@ function printResources() {
 			over: function(event, ui) {
 			},
 			drop: function(event, ui) {
-				var draggableId = ui.draggable[0].attributes.id.value;
-				var droppableId = $(this).attr('id');
-				$.jGrowl(draggableId + " was dropped on " + droppableId);
+				var draggableId = getWordAfterChar(ui.draggable[0].attributes.id.value, '_');
+				var droppableId = getWordAfterChar($(this).attr('id'), '_');
+				
+				console.debug("DraggableId:");
+				console.debug(droppableId);
+				console.debug("DroppableId:");
+				console.debug(droppableId);
+				
+				printDialogChooseLinkType(draggableId, droppableId);
+//				$.jGrowl($.i18n._("link_created_between", [draggableId, droppableId]));
 			}
 		})
 		.appendTo('#selectable-'+Collection.Type);
@@ -352,7 +381,7 @@ function printResources() {
 function printDialogActions(type, resourceId) {
 	var actions = getActionsOfType(type);
 	$('<div/>', {
-		'id': 'dialog'+ resourceId,
+		'id': 'dialog'+"_"+ resourceId,
 		'style' :  'float: left; text-align: center',
 	})
 	.dialog({
@@ -377,9 +406,9 @@ function printDialogActions(type, resourceId) {
       	  	$.jGrowl($.i18n._("action_executed", [$(this).html()])+"!");
 		})
 		.appendTo($('<div/>', {
-			'id' : "div"+actionName+"resId",
+			'id' : "div"+actionName+"_"+"resId",
 		}))
-		.appendTo($('#dialog'+resourceId));
+		.appendTo($('#dialog'+"_"+resourceId));
 	});
 	
 }
@@ -392,19 +421,19 @@ function printDivDetails(ResourceId, key) {
 		//if(value!=undefined) details += ucwords(getWordAfterChar(key, '.')) + ": "+value + "<br/>";
 		if(value!=undefined) details += $.i18n._(getWordAfterChar(key, '.')) + ": "+value + "<br/>";
 	});
-	$('#'+Resource.Type+key).html(details);
+	$('#'+Resource.Type+"_"+key).html(details);
 }
 
 function printButtonsCustomizeResource(ResourceId, key) {
 	var Resource = ResourcesOfServer[ResourceId];
 	var detailBox = $('<div/>', {
-		'id' : Resource.Type+key+"_buttons",
+		'id' : Resource.Type+"_"+key+"_buttons",
 		'name' : 'detailBox',
-		'style' : 'text-align:center; display:none'
-	}).insertAfter($('#'+Resource.Type+key));
+		'style' : 'margin-bottom: 20px; text-align:center; display:none;'
+	}).insertAfter($('#'+Resource.Type+"_"+key));
 	
 	$('<div/>', {
-		'id' : Resource.Type+key,
+		'id' : Resource.Type+"_"+key,
 		'class' : 'button_customizeResource',
 	})
 	.button({
@@ -415,18 +444,17 @@ function printButtonsCustomizeResource(ResourceId, key) {
     })
     .width("26")
     .bind("click", function(){
-    	$.jGrowl("Please drag me!");
+    	$.jGrowl($.i18n._("drag_to_target"));
     })
     .appendTo(detailBox)
     .draggable({
     	opacity: 0.7, 
-    	helper: "clone",
     	start: function(){
     		$(this).unbind('click');
     	},
     	stop: function(){
     		$(this).bind('click', function(){
-    	    	$.jGrowl("Please drag me!");
+    			$.jGrowl($.i18n._("drag_to_target"));
     		});
     	},
     	revert: true,
@@ -514,10 +542,11 @@ function printButtonsCustomizeResource(ResourceId, key) {
  * 
  */
 
+
 function printButtonCreateResourceAndLink() {
 	
 $('#page')
-.prepend($('<div/>', {
+.append($('<div/>', {
 	'id' : 'div_createResourceContainer',
 	'class' : 'ui-widget-header ui-corner-all',
 	'style' : 'margin: 10px 0 10px 0'
@@ -532,6 +561,11 @@ $('#div_createResourceContainer')
 .append($('<button/>', {
 	'id' : 'button_create_link',
 	'html' : $.i18n._("Create_new_link"),
+	'style' : 'margin: 10px'
+	}).button())
+.append($('<button/>', {
+	'id' : 'button_customize_view',
+	'html' : $.i18n._("Customize_view"),
 	'style' : 'margin: 10px'
 	}).button())
 .append($('<br/>'));
@@ -552,8 +586,162 @@ function printDivEditResource(Resource) {
 					'html' : ucwords(getWordAfterChar(key, '.'))
 				})
 		).appendTo(out);
+		$('<br/>',{
+			'class' : 'clear',
+		})
+		.appendTo(out);
 	});
 	return out;
+}
+
+/*
+ * 
+ * Dialogs
+ * 
+ */
+
+function printDialogChooseLinkType(sourceId, targetId){
+	$('<div/>', {
+		'id': 'dialog_chooseLinkType',
+		'style' :  'float: left; text-align: left',
+	})
+	.dialog({
+		autoOpen: true,
+		modal: true,
+		title: $.i18n._("Create_new_link"),
+		resizable: false,
+		draggable: true,
+		close: function(ev, ui) {
+		    $(this).remove();
+		 }
+	});
+	
+	if($('#dialog_chooseLinkType').dialog("isOpen")) {
+		
+		var selectBox1 = $('<div/>', {
+			'class' : 'selectBox1',
+			'name' : 'selectBox1'
+		});
+		
+		
+		
+		var inputS = $('<input/>', {
+			'class' : 'inputLink',
+			'disabled' : 'disabled',
+			'name' : 'inputLinkTarget',
+			'id' : 'inputLinkTarget',
+			'value' : sourceId	
+		});
+		
+		
+		
+		inputS.appendTo(selectBox1);
+		selectBox1.appendTo('#dialog_chooseLinkType');
+		
+		$('<label/>', {
+			'html' : 'Target',
+			'for' : 'selectLinkTarget',
+			'class' : 'attributes'
+		}).insertBefore(inputS);
+		
+		$('<br/>').appendTo('#dialog_chooseLinkType');
+		
+		var selectBox2 = $('<div/>', {
+			'class' : 'selectBox2',
+			'name' : 'selectBox2'
+		});
+		
+		var selectL = 
+			$('<select/>', {
+				'id' : 'selectLink',
+				'class' : 'selectLink',
+				'name' : 'selectLink'
+			});
+			
+			$.each(Links, function(key, value){
+				$('<option/>', {
+					'html' : value.term,
+					'value' : value.term
+				})
+				.appendTo(selectL);
+			});
+		
+		selectL.appendTo(selectBox2);
+		selectL.combobox({
+	        selected: function(event, ui) {
+	        	printLinkAttr(selectL.val(), selectLinkAttr);
+				$("#dialog_chooseLinkType").dialog('option', 'position', 'center');
+	        }
+	     });
+		
+		selectBox2.appendTo('#dialog_chooseLinkType');
+		
+		$('<label/>', {
+			'html' : 'Link',
+			'for' : 'selectLink',
+			'class' : 'attributes'
+		}).insertBefore(selectL);
+		
+		
+		var selectLinkAttr = $('<div/>', {
+			'class' : 'selectLinkAttr, divAttr',
+			'name' : 'selectLinkAttr'
+		});
+		
+		selectLinkAttr.appendTo('#dialog_chooseLinkType');
+		
+		selectL
+		.ready(function(key, value){
+			printLinkAttr(selectL.val(), selectLinkAttr);
+		});
+		
+		
+		
+		$('<br/>').appendTo('#dialog_chooseLinkType');
+		
+		var selectBox3 = $('<div/>', {
+			'class' : 'selectBox3',
+			'name' : 'selectBox3'
+		});
+		
+		
+		
+		var inputT = $('<input/>', {
+			'class' : 'inputLink',
+			'disabled' : 'disabled',
+			'name' : 'inputLinkTarget',
+			'id' : 'inputLinkTarget',
+			'value' : targetId	
+		});
+		
+		
+		
+		inputT.appendTo(selectBox3);
+		selectBox3.appendTo('#dialog_chooseLinkType');
+		
+		$('<label/>', {
+			'html' : 'Target',
+			'for' : 'selectLinkTarget',
+			'class' : 'attributes'
+		}).insertBefore(inputT);
+		
+		$('<br/>').appendTo('#dialog_chooseLinkType');
+		
+		var div = $('<div/>', {
+			'style' : 'text-align: center; margin-top: 10px'
+		}).appendTo('#dialog_chooseLinkType');
+		
+		$('<button/>', {
+			'html' : 'Save',
+		})
+		.button()
+		.bind('click', function() {
+			$('#dialog_chooseLinkType').remove();
+			$.jGrowl($.i18n._("Link")+" "+$.i18n._("saved")+"!");
+})
+		.appendTo(div);
+	}
+	
 }
 /*
  * 

@@ -3,8 +3,7 @@
 /**
  * Begin Config
  */
-var url_server = "";//"http://192.168.56.101:3000/";
-var url_server_info = url_server+"-/";
+var url_server = "http://192.168.56.101:3000/";
 
 /**
  * set available languages
@@ -23,6 +22,12 @@ var defaultLanguage = "";
 /**
  * Position of notifications
  */
+
+/**
+ * set jGrowl on/off
+ */
+var jGrowl = "off";
+
 $.jGrowl.defaults.position = 'center';
 $.jGrowl.defaults.closeTemplate = '';
 

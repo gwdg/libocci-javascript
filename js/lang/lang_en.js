@@ -3,9 +3,14 @@ var en = {
 		/**
 		 * Following translations are mandatory
 		 */
+		"server_data"					:		'data from server',
+		"discovery_interface"			:		'discovery interface',
+		
+		"error_getData"					:		"Getting %s failed. Server is not accessible. Please check the IP-address of the server and its configuration.",
 		
 		'Select_language_text'			:		'Please select your language',
-		'missing_specification'			:		'Missing specification',
+		'Your_current_language'			: 		'Your current language',
+		'define_host'					:		'Define host',
 		'missing_host_text'				:		'Please insert your host',
 		
 		'welcome_text'					:		'Welcome to the OCCI Dashboard!',
@@ -21,6 +26,8 @@ var en = {
 		
 		'Create_new_resource'			:		'Create new resource',
 		'Create_new_link'				:		'Create new link',
+		'Customize_view'				: 		'Customize view',
+		'Customize_view_text'			: 		'Please choose, which kinds are to be displayed',
 		
 		'New'							:		'New',
 		
@@ -47,6 +54,8 @@ var en = {
 		
 		'linkedTo'						:		'Connected with',
 		'LinkedTo'						:		'Connected with',
+		'link_created_between'			:		'Link was created between %s and %s',
+		'drag_to_target'				:		'Please drag this symbol to the Target to create a Link',
 		
 		/**
 		 * Please add all the Expressions provided by the server 

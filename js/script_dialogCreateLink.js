@@ -24,7 +24,8 @@ function createDialogCreateLink() {
 			
 			var select = $('<select/>', {
 				'class' : 'selectLinkSource',
-				'name' : 'selectLinkSource'
+				'name' : 'selectLinkSource',
+				'id'	: 'selectLinkSource'
 			});
 			
 			$.each(ResourcesOfServer, function(key, value){
@@ -105,7 +106,8 @@ function createDialogCreateLink() {
 			
 			var selectT = $('<select/>', {
 				'class' : 'selectLinkTarget',
-				'name' : 'selectLinkTarget'
+				'name' : 'selectLinkTarget',
+				'id' : 'selectLinkTarget'
 			});
 			
 			$.each(ResourcesOfServer, function(key, value){
@@ -163,6 +165,7 @@ function printLinkAttr(kind, div) {
 					})
 			)
 			.appendTo(div);
+			$('<br/>', {'class':'clear'}).appendTo(div);
 		});
 		
 		
