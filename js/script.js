@@ -7,7 +7,8 @@ var Mixin;
 var Links;
 
 
-if(jGrowl == "off") $.jGrowl = function( m , o ) {return}
+if(notifications == "off") $.jGrowl = function( m , o ) {return}
+$.jGrowl.defaults.position = notications_position;
 
 loadAndSetLanguages(function() {
 $(document).ready(function(){
@@ -51,6 +52,7 @@ function promptHostUrl(){
 			.dialog({
 				autoOpen: true,
 				modal: true,
+				resizable: false,
 				title: $.i18n._("define_host"),
 				close: function(ev, ui) {
 				    $(this).remove();

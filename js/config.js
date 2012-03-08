@@ -1,9 +1,11 @@
-
+/**
+ * Here you can set different options regarding server und view
+ */
 
 /**
  * Begin Config
  */
-var url_server = "http://192.168.56.101:3000/";
+var url_server = "";
 
 /**
  * set available languages
@@ -24,12 +26,15 @@ var defaultLanguage = "";
  */
 
 /**
- * set jGrowl on/off
+ * set notifications on/off
  */
-var jGrowl = "off";
+var notifications = "on";
 
-$.jGrowl.defaults.position = 'center';
-$.jGrowl.defaults.closeTemplate = '';
+/**
+ * set position of notications
+ * available: top-left, top-right, bottom-left, bottom-right, center
+ */
+var notications_position = 'center';	
 
 
 /**
