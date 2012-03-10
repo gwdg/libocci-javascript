@@ -109,6 +109,15 @@ function init() {
 	$.jGrowl($.i18n._("welcome_text"));
 }
 
+function reload() {
+	prepareData(function(){
+		$('#main').remove();
+		$('#div_createResourceContainer').remove();
+			printDashboard();
+	});
+	
+}
+
 
 /**
  * get initiated Stuff
@@ -266,8 +275,7 @@ function printDashboard() {
 	
 	Links = getAllLinks();
 	Mixins = getAllMixins();
-	
-	
+		
 	printButtonCreateResourceAndLink();
 
 	printSections();
@@ -524,7 +532,16 @@ function printButtonsCustomizeResource(ResourceId, key) {
 			          {
 			              text: $.i18n._("yes"),
 			              click: function() { 
+			              	var res = "/"+ResourcesOfServer[key]["Type"]+"/"+ResourcesOfServer[key]["occi.core.id"];
 			            	  $(this).dialog("close");
+			            	  $.ajax({
+								  url: res,
+								  type: "DELETE",
+								  success: function(){
+								  	reload();
+								  }
+								});
+			            	  
 			            	  $.jGrowl($.i18n._("Resource")+" "+$.i18n._("deleted")+"!");
 			              }
 			          },
