@@ -264,6 +264,26 @@ function getActionsOfType(type) {
 	return actions;
 }
 
+function getActionsOfResource(resourceId) {
+	var out;
+	console.info("getActionsOfResource called!");
+	console.debug("resourceId "+resourceId);
+	$.each(data_server, function(key, value) {
+		$.each(value, function(k, v){
+			if(v.location){
+				console.debug("location "+v.location);
+				var id = getWordAfterChar(v.location, '/');
+				if(id == resourceId){
+					console.debug("match found");
+					console.debug(v.actions);
+					out =  v.actions;
+				}
+			}
+		});
+	});
+	return out;
+}
+
 /*
  * 
  * BEGIN Prints
@@ -390,6 +410,8 @@ function printResources() {
 
 function printDialogActions(type, resourceId) {
 	var actions = getActionsOfType(type);
+	var availActions = getActionsOfResource(resourceId);
+	console.debug(availActions);
 	$('<div/>', {
 		'id': 'dialog'+"_"+ resourceId,
 		'style' :  'float: left; text-align: center',
@@ -402,23 +424,34 @@ function printDialogActions(type, resourceId) {
 		    $(this).remove();
 		 }
 	}).dialog('open');
+	
+	
+	
 	$.each(actions, function(key, value){
-		console.debug(value);
 		actionType = getWordAfterChar(value.type, '#');
 		actionName = value.title;
-		$('<button/>', {
-			'class' : 'button action',
-			'html' : actionName,
-		})
-		.button()
-		.bind('click', function(){
-			$(this).parent().dialog("close"); 
-      	  	$.jGrowl($.i18n._("action_executed", [$(this).html()])+"!");
-		})
-		.appendTo($('<div/>', {
-			'id' : "div"+actionName+"_"+"resId",
-		}))
-		.appendTo($('#dialog'+"_"+resourceId));
+		console.debug(value.uri);
+		
+		$.each(availActions, function(k, v){
+			console.debug(v.uri);
+			var b = $('<button/>', {
+					'class' : 'button action',
+					'html' : actionName,
+					'disabled' : true
+			});
+				b.button()
+				.bind('click', function(){
+					$(this).parent().dialog("close"); 
+		      	  	$.jGrowl($.i18n._("action_executed", [$(this).html()])+"!");
+				})
+				.appendTo($('<div/>', {
+					'id' : "div"+actionName+"_"+"resId",
+				}))
+				.appendTo($('#dialog'+"_"+resourceId));
+			if(getWordAfterChar(v.uri, '?') == getWordAfterChar(value.uri, '?')) {
+				b.button({ disabled: false });
+			}
+		});
 	});
 	
 }
